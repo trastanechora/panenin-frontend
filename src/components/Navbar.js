@@ -23,8 +23,8 @@ class Navbar extends Component {
         return (
             <div className="row navbar">
                 <div className="col-md-2">
-                    <Link to="/">
-                    <img className="logo" src={require("../media/logo/logo2.png")} alt="" />
+                    <Link to="/" onClick={() => this.props.setHome()}>
+                        <img className="logo" src={require("../media/logo/logo2.png")} alt="" />
                     </Link>
                 </div>
                 <div className="col-md-3">

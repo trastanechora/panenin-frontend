@@ -179,6 +179,29 @@ ol.carousel-indicators {
 .content-body {
    background-color: white;
    margin-top: 30px;
+   // display: none;
+}
+
+.container.content-body.shadow {
+   // background-color: white;
+   // margin-top: 30px;
+   display: none;
+   // transition: 2s all ease;
+   // transition-property: display;
+   // transition-duration: 5s;
+   opacity:0;
+   // transition: opacity 1s ease-in-out;
+   // transition: all 10s linear;
+   transition: opacity .8s ease-in-out;
+   // transition: opacity 5s;
+   // transition: .4s all ease;
+}
+
+.container.content-body.shadow.show {
+   display: block;
+   // transition: 2s all ease;
+   opacity:1;
+   // transition: .4s all ease;
 }
 
 .shadow {

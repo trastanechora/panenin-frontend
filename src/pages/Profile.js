@@ -33,27 +33,11 @@ class Profile extends Component {
 
 
   render() {
-    if (!this.props.is_login) {
-      return <Redirect to={{ pathname: "/signin" }} />;
-  } else {
+    console.log("Cek trorage", localStorage.getItem('token'))
+    if (localStorage.getItem('token') == null) {
+      return <Redirect to={{ pathname: "/auth" }} />;
+    } else {
     return (
-      // <div>
-      //   <div class="container-fluid for-banner">
-      //     <Navbar />
-      //     <div class="row banner register-page">
-      //       <div class="container-fluid row">
-      //           <div class="col-md-4 banner-opening">
-      //               <h3>Selamat datang Sahabat Panen!</h3>
-      //               <p>Temukan hasil alam Indonesia melimpah dari Sabang sampai Merauke</p>
-      //           </div>
-      //       </div>
-      //     </div>
-      //     <div class="row content-area">
-      //       <h1>Profile page here</h1>
-      //     </div>
-      //   </div>
-      //   <Footer />
-      // </div>
       <div class="row">
         <div class="col-lg-3 col-md-6 col-sm-6">
           <div class="card card-stats">
