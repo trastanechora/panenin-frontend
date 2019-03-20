@@ -6,31 +6,31 @@ import '../css/style.css';
 class Footer extends Component {
   render() {
     return (
-        <footer class="container-fluid footer">
-            <div class="container footer-handler row">
-                <div class="footer-logo col-md-3"><img class="logo-footer" src={require("../media/logo/logo2.png")} alt="" /></div>
-                <div class="footer-logo col-md-3">
+        <footer className="container-fluid footer">
+            <div className="container footer-handler row">
+                <div className="footer-logo col-md-3"><img className="logo-footer" src={require("../media/logo/logo2.png")} alt="" /></div>
+                <div className="footer-logo col-md-3">
                     <p><strong>Tentang Kami</strong></p>
-                    <p class="menu-footer">Blog <br />
+                    <p className="menu-footer">Blog <br />
                     QnA <br />
                     Hubungi Kami</p> 
                 </div>
-                <div class="footer-logo col-md-3">
+                <div className="footer-logo col-md-3">
                     <p><strong>Beli</strong></p>
-                    <p class="menu-footer">Cara Membeli<br />
+                    <p className="menu-footer">Cara Membeli<br />
                         Pembayaran
                     </p>
                 </div>
-                <div class="footer-logo col-md-3">
+                <div className="footer-logo col-md-3">
                     <p><strong>Jual</strong></p>
-                    <p class="menu-footer">Cara Menjual<br />
+                    <p className="menu-footer">Cara Menjual<br />
                         Penarikan Dana
                     </p>
                 </div>
             </div>
-            <div class="justify-content-center">
+            <div className="justify-content-center">
                 <hr />
-                <p class="copyright-footer">copyright panenin.com</p>
+                <p className="copyright-footer">copyright panenin.com</p>
             </div>
         </footer>
     );

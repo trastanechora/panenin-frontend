@@ -130,6 +130,10 @@ ol.carousel-indicators {
 .menu-item {
    margin-right: 10px;
    vertical-align: middle;
+   list-style: none;
+   // -webkit-transition: 1s all ease;
+   // -moz-transition: 1s all ease;
+   transition: .4s all ease;
 }
 
 .menu-item.active, .menu-item:hover {
@@ -175,6 +179,10 @@ ol.carousel-indicators {
 .content-body {
    background-color: white;
    margin-top: 30px;
+}
+
+.shadow {
+   box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 }
 
 .footer {
@@ -275,7 +283,11 @@ input.form-control.mr-sm-2.search:focus {
    background-color: white;
    margin-top: -100px;
    // height: 500px;
-   box-shadow: 2px 1px 4px rgba(0, 0, 0, .5);
+   // box-shadow: 2px 1px 4px rgba(0, 0, 0, .5);
+   box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+   -webkit-transition: 1s all ease;
+   -moz-transition: 1s all ease;
+   transition: 1s all ease;
 }
 
 .form-centering {
@@ -344,9 +356,9 @@ label {
    text-align: center;
 }
 
-.content-info {
-   height: 200px;
-}
+// .content-info {
+//    height: 200px;
+// }
 
 .header-content {
    display: flex;
@@ -361,7 +373,10 @@ label {
 .test:hover {
    background-color: $dark-green;
    color: white;
-   cursor: pointer; 
+   box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+   cursor: pointer;
+   // padding-top: 5px;
+   // padding-bottom: 5px;
 }
 
 .content-info {
@@ -781,3 +796,6 @@ input#response-offer {
    background-color: rgb(153, 145, 39);
 }
 
+.card-header.card-header-success#card-info {
+   background: $dark-green;
+}

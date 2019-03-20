@@ -1,7 +1,6 @@
 // LIST IMPORT MODULE
 import React, { Component } from 'react';
 import '../css/style.css';
-// import './products/main';
 
 // COMPONENT BODY
 class Banner extends Component {
@@ -62,7 +61,6 @@ class Banner extends Component {
                 <div><a className="prev" href="#"></a></div>
                 <div><a className="next" href="#"></a></div>
             </nav>
-            <script src="../../public/js/main.js"></script> 
         </section>
     );
   }

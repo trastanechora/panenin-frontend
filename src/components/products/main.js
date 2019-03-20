@@ -1,3 +1,4 @@
+//   =================================== TEST ==================================
 function changeToLogin() {
     var register = document.getElementById('register');
     register.style.display = 'none';
@@ -156,5 +157,4 @@ function nextStepTransaction() {
       },timeTrans);
   
   })();
-
-
+//   =================================== TEST ===================================

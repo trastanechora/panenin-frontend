@@ -11,6 +11,8 @@ import Banner from '../components/Banner';
 import Menubar from '../components/Menubar';
 import Content from '../components/Content';
 import Footer from '../components/Footer';
+import ContentRoute from '../routes/ContentRoute'
+import Test from '../components/test';
 
 
 //MAIN CLASS
@@ -32,9 +34,11 @@ class Home extends Component {
       <div>
         <div className="container-fluid for-banner">
           <Navbar />
-          <Banner />
+          {/* <Banner /> */}
+          <Test />
           <Menubar />
           <Content />
+          {/* <ContentRoute /> */}
         </div>
         <Footer />
       </div>

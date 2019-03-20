@@ -1,11 +1,14 @@
 // LIST IMPORT MODULE
 import React, { Component } from 'react';
+import { connect } from "unistore/react";
+import { actions } from '../../Store';
+import { withRouter } from "react-router-dom";
 // import '../css/material-dashboard.css';
-import '../css/bootstrap.min.css';
-import '../css/style.css';
+import '../../css/bootstrap.min.css';
+import '../../css/style.css';
 
 // COMPONENT BODY
-class Menubar extends Component {
+class Fruit extends Component {
   render() {
     return (
         <div className="row content-area">
@@ -15,7 +18,7 @@ class Menubar extends Component {
                                 <div class="row">
                                     <div class="col-lg-3 col-md-6 col-sm-6">
                                         <div class="card card-stats">
-                                            <div class="card-header card-header-warning card-header-icon">
+                                            <div class="card-header card-header-success card-header-icon">
                                             <div class="card-icon">
                                                 <i class="material-icons">content_copy</i>
                                             </div>
@@ -53,7 +56,7 @@ class Menubar extends Component {
                                         </div>
                                         <div class="col-lg-3 col-md-6 col-sm-6">
                                         <div class="card card-stats">
-                                            <div class="card-header card-header-danger card-header-icon">
+                                            <div class="card-header card-header-success card-header-icon">
                                             <div class="card-icon">
                                                 <i class="material-icons">info_outline</i>
                                             </div>
@@ -69,7 +72,7 @@ class Menubar extends Component {
                                         </div>
                                         <div class="col-lg-3 col-md-6 col-sm-6">
                                         <div class="card card-stats">
-                                            <div class="card-header card-header-info card-header-icon">
+                                            <div class="card-header card-header-success card-header-icon">
                                             <div class="card-icon">
                                                 <i class="material-icons">alarm</i>
                                             </div>
@@ -90,13 +93,13 @@ class Menubar extends Component {
                                     {/* <!-- <small>Padi</small> --> */}
                                 </div>
                                 <div className="row content-info">
-                                    <div className="col-md-4 product-image"><img src={require("../media/ico/menu/wheat.png")} alt="" /></div>
+                                    <div className="col-md-4 product-image"><img src={require("../../media/ico/menu/wheat.png")} alt="" /></div>
                                     <div className="col-md-8">
                                         {/* TEST */}
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="card card-chart">
-                                                    <div class="card-header card-header-success" id="card-info">
+                                                    <div class="card-header card-header-warning" id="card-info">
                                                         <div class="ct-chart" id="dailySalesChart"><h4 class="card-title">Statistika Dagang Bulanan</h4></div>
                                                     </div>
                                                     <div class="card-body">
@@ -298,4 +301,7 @@ class Menubar extends Component {
 }
 
 // EXPORT THE COMPONENT BODY
-export default Menubar;
+// export default Fruit;
+export default connect(
+    "auth_state", actions)
+(withRouter(Fruit));
