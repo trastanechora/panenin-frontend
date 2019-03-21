@@ -38,8 +38,8 @@ class Navbar extends Component {
                 <div className="col-md-4" id="register-btn">
                     {/* <button type="button" className="btn btn-outline-success login">LOGIN</button> */}
                     {/* <button type="button" className="btn btn-outline-success">REGISTER</button> */}
-                    <Link to="/auth" className="btn btn-outline-success login" onClick={() => this.changeStateFalse()}>LOGIN</Link>
-                    <Link to="/auth" className="btn btn-outline-success" onClick={() => this.changeStateTrue()}>REGISTER</Link>
+                    <Link to="/auth" className="btn btn-outline-success login" onClick={() => this.changeStateFalse()}>MASUK</Link>
+                    <Link to="/auth" className="btn btn-outline-success" onClick={() => this.changeStateTrue()}>DAFTAR</Link>
                 </div>
                 {/* <!-- <div className="col-md-2" id="login-btn">LOGIN</div> --> */}
             </div>

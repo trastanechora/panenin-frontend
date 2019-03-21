@@ -9,6 +9,7 @@ import { actions } from '../Store';
 import Home from "../pages/Home";
 import Auth from '../pages/Auth';
 import Profile from '../pages/Profile';
+import Detail from '../pages/Detail';
 
 // MAIN CLASS
 class MainRoute extends Component {
@@ -18,6 +19,7 @@ class MainRoute extends Component {
         <Route exact path="/" component={ Home } />
         <Route exact path="/auth" component={ Auth } />
         <Route exact path="/profile" component={ Profile } />
+        <Route exact path="/detail" component={ Detail } />
       </Switch>
     );
   }
