@@ -8,26 +8,78 @@ import '../css/bootstrap.min.css';
 import '../css/style.css';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import ContentAuth1 from '../components/ContentAuth1';
-import ContentAuth2 from '../components/ContentAuth2';
+import ListOffer from '../components/ListOffer'
 
 
 //MAIN CLASS
 class Detail extends Component {
+    constructor (props) {
+        super(props);
+          this.state = {
+            amount: 0,
+            constanta: "",
+            category: "",
+            delivery_provided: "",
+            description: "",
+            id: "",
+            location: "",
+            name: "",
+            offer: "",
+            posted_at: "",
+            posted_by: 0,
+            price: 0,
+            product_type: "",
+            status: "",
+            offers: []
+          };
+      };
+
     componentDidMount = async () =>{
+        const self = this;
         const product_id = this.props.location.pathname.slice(8)
         console.log("test location for product id", product_id)
-        const url = "http://0.0.0.0:5555/api/public/products/" + product_id
+        const url_product = "http://0.0.0.0:5555/api/public/products/" + product_id
+        const url_offer = "http://0.0.0.0:5555/api/offers?product_id=" + product_id
 
+        // =============== Load the product detail ===============
         await axios
-        .get(url)
+        .get(url_product)
         .then(function(response) {
-            console.log("Sukses get product detail", response.data)
+            // console.log("Sukses get product detail", response.data.data[0])
             // this.setState({ListProduct: response.data.data});
+            self.setState({
+                amount: response.data.data[0].amount,
+                category: response.data.data[0].category,
+                delivery_provided: response.data.data[0].delivery_provided,
+                description: response.data.data[0].description,
+                id: response.data.data[0].id,
+                location: response.data.data[0].location,
+                name: response.data.data[0].name,
+                posted_at: response.data.data[0].posted_at,
+                posted_by: response.data.data[0].posted_bt,
+                price: response.data.data[0].price,
+                product_type: response.data.data[0].product_type,
+                status: response.data.data[0].status
+            })
         })
         .catch(function(error) {
             console.log("Failed axios at detail", error);
         });
+        console.log("Cek local state on Detail page", self.state)
+
+        // =============== Load the product offers ===============        
+        await axios
+        .get(url_offer)
+        .then(function(response) {
+            self.setState({
+                offers: response.data[0]
+            })
+            console.log("Success get response from offer", response.data[0])
+        })
+        .catch(function(error) {
+            console.log("Failed axios at detail", error);
+        });
+        console.log("Cek local state on Detail page", self.state)
     }
 
     render() {
@@ -54,8 +106,8 @@ class Detail extends Component {
                                         <div className="card-icon green">
                                             <i className="material-icons">content_copy</i>
                                         </div>
-                                        <p className="card-category">Produk terdaftar</p>
-                                        <h3 className="card-title">23
+                                        <p className="card-category">Jasa antar kurir</p>
+                                        <h3 className="card-title">{this.state.delivery_provided ? "Disediakan Penjual" : "Tidak Tersedia"}
                                             {/* <small> tersedia</small> */}
                                         </h3>
                                     </div>
@@ -63,7 +115,7 @@ class Detail extends Component {
                                         <div className="stats">
                                             {/* <i className="material-icons text-danger">warning</i> */}
                                             {/* <a href="#pablo">Get More Space...</a> */}
-                                            <i className="material-icons">date_range</i> Last 24 Hours
+                                            <i className="material-icons">date_range</i> Syarat dan ketentuan berlaku
                                         </div>
                                     </div>
                                 </div>
@@ -74,12 +126,12 @@ class Detail extends Component {
                                         <div className="card-icon green">
                                             <i className="material-icons">alarm</i>
                                         </div>
-                                        <p className="card-category">Transaksi berhasil</p>
-                                        <h3 className="card-title">17+</h3>
+                                        <p className="card-category">Lelang dibuka pada</p>
+                                        <h3 className="card-title">{this.state.posted_at.slice(0, 19)}</h3>
                                     </div>
                                     <div className="card-footer">
                                         <div className="stats">
-                                            <i className="material-icons">update</i> Just Updated
+                                            <i className="material-icons">update</i> Perhatikan jenis barang untuk kondisi kesegaran produk
                                         </div>
                                     </div>
                                 </div>
@@ -93,12 +145,12 @@ class Detail extends Component {
                                 <div className="row">
                                     <div className="col-md-12">
                                         <div className="card card-chart">
-                                            <div className="card-header card-header-success" id="card-info">
-                                                <div className="ct-chart" id="dailySalesChart"><h4 className="card-title">Padi Super MH360</h4></div>
+                                            <div className="card-header card-header-success" id="card-infox">
+                                                <div className="ct-chart" id="dailySalesChart"><h4 className="card-title">{this.state.name}</h4></div>
                                             </div>
                                             <div className="card-body">
                                                 <div class="row">
-                                                    <div class="col-md-12 product-detail-description">Beras wangi asli dari Malang, fresh dipanen 2 hari yang lalu, mutu terjamin. Butiran beras gemuk dan panjang. Bisa dinego monggo yang tertarik silahkan pasang tawaran. Delivery akan dipost ke "buka pengiriman".</div>
+                                                    <div class="col-md-12 product-detail-description">{this.state.description}</div>
                                                 </div>
 
 
@@ -116,9 +168,9 @@ class Detail extends Component {
                                                     </thead>
                                                     <tbody>                          
                                                         <tr>
-                                                            <td><strong className="detail-info card-header-warning">1000 KG</strong></td>     
-                                                            <td><strong className="detail-info card-header-warning">Rp. 4.800.000,-</strong></td>
-                                                            <td><strong className="detail-info card-header-warning">Malang</strong></td>                  
+                                                            <td><strong className="detail-info card-header-warning">{this.state.amount} KG</strong></td>     
+                                                            <td><strong className="detail-info card-header-warning">Rp. {this.state.price},-</strong></td>
+                                                            <td><strong className="detail-info card-header-warning">{this.state.location}</strong></td>                  
                                                         </tr>
                                                     </tbody>
                                                 </table>
@@ -130,7 +182,7 @@ class Detail extends Component {
                                             </div>
                                             <div className="card-footer">
                                                 <div className="stats">
-                                                    <i className="material-icons">access_time</i> updated 4 minutes ago
+                                                    <i className="material-icons">access_time</i> Harga di atas masih bisa ditawar dengan hati nurani
                                                 </div>
                                             </div>
                                         </div>
@@ -148,7 +200,7 @@ class Detail extends Component {
                                     <p className="card-category"> Silahkan tambahkan tawaran di bawah ini dan tunggu respon penjual</p>
                                 </div>
                                 <div className="card-body">
-                                <div class="container wrapper-content-description">
+                                {/* <div class="container wrapper-content-description">
                                     <div class="row">
                                         <div class="col-md-6">Penawar:</div>
                                         <div class="col-md-6 time">15:33 | 6- Maret - 2019</div>
@@ -168,7 +220,6 @@ class Detail extends Component {
                                         </div>
                                         <div class="col-md-1"></div>
                                     </div>
-                                    
                                 </div>
                                 <div class="container wrapper-content-description">
                                     <div class="row">
@@ -190,7 +241,18 @@ class Detail extends Component {
                                         </div>
                                         <div class="col-md-1"></div>
                                     </div>
-                                </div>
+                                </div> */}
+                                    {this.state.offers.map((item, key) => {
+                                            // console.log("testing item value", item)
+                                            const amount = item.amount !== null ? item.amount : "";
+                                            const buyer_id = item.buyer_id !== null ? item.buyer_id : "";
+                                            const created_at = item.product_created_at !== null ? item.product_created_at : "";
+                                            const description = item.description !== null ? item.description : "";
+                                            const destination = item.destination !== null ? item.destination : "";
+                                            const price = item.price !== null ? item.price : "";
+                                            const status = item.status !== null ? item.status : "";
+                                            return <ListOffer key={key} date={created_at} buyer={buyer_id} destination={destination} price={price} description={description} status={status} />
+                                        })}
                                 </div>
                             </div>
                             

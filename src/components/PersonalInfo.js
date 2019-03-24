@@ -15,10 +15,11 @@ const PersonalInfo = props => {
                     </a>
                 </div>
                 <div className="card-body">
-                    <h6 className="card-category text-gray">PENJUAL | PEMBELI | DRIVER</h6>
-                    <h4 className="card-title">Maestro Trastanechora</h4>
+                    <h6 className="card-category text-gray">{props.email}</h6>
+                    {/* <h6 className="card-category text-gray">PENJUAL | PEMBELI | DRIVER</h6> */}
+                    <h4 className="card-title">{(props.display_name === null) ? "Nama lengkap anda belum diisi" : props.display_name}</h4>
                     <p className="card-description">
-                    Don't be scared of the truth because we need to restart the human foundation in truth And I love you like Kanye loves Kanye I love Rick Owens’ bed design but the back is...
+                        {(props.address === null) ? "Alamat anda belum terisi.." : props.address}
                     </p>
                     <a href="#" className="btn btn-danger btn-round" onClick={() => props.state_change()}>Ubah</a>
                 </div>

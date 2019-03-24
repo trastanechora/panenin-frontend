@@ -20,12 +20,25 @@ class Profile extends Component {
   constructor (props) {
     super(props);
       this.state = {
-        profile_edit: false
+        profile_edit: false,
+        id: 0,
+        email: "",
+        username: "",
+        password: "",
+        date_of_birth: "",
+        address: "",
+        created_at: "",
+        display_fullname: "",
+        gender: "",
+        phone: "",
+        status: "",
+        updated_at: ""
       };
   };
 
   componentDidMount = async () => {
     const token = localStorage.getItem("token")
+    const self = this
     console.log("TOKEEEEEEN", token)
     // await axios({
     //   method: 'post', //you can set what request you want to be
@@ -47,29 +60,25 @@ class Profile extends Component {
         Authorization: 'Bearer ' + token
       }
     }).then(function(response) {
+          self.setState({ 
+            id: response.data.data.id,
+            email: response.data.data.email,
+            username: response.data.data.username,
+            password: response.data.data.password,
+            date_of_birth: response.data.data.date_of_birth,
+            address: response.data.data.address,
+            created_at: response.data.data.created_at,
+            display_fullname: response.data.data.display_fullname,
+            gender: response.data.data.gender,
+            phone: response.data.data.phone,
+            status: response.data.data.status,
+            updated_at: response.data.data.updated_at
+          })
           console.log("Sukses get identity", response)
         }).catch(function(error) {
           console.log("Gagal get identity", error);
         });
-
-    // await axios
-    //   .post(url_login, data)
-    //   .then(function(response) {
-    //       console.log("Sukses", response)
-    //       if (response.data.hasOwnProperty("token")) {
-    //           // console.log("cek token!", response.data.token)
-    //           store.setState({
-    //               is_login: true,
-    //               token: response.data.token,
-    //           });
-    //           localStorage.setItem('token', response.data.token)
-    //       } else {
-    //           console.log("Login Gagal");
-    //       }
-    //   })
-    //   .catch(function(error) {
-    //       console.log("Gagal", error);
-    //   });
+      console.log("cek local storage detail", self.state)
   }
 
   state_change = () => {
@@ -93,8 +102,8 @@ class Profile extends Component {
                   <i class="material-icons">content_copy</i>
                 </div>
                 <p class="card-category">ID Pengguna</p>
-                <h3 class="card-title">23
-                  <small>GB</small>
+                <h3 class="card-title">{this.state.id}
+                  <small></small>
                 </h3>
               </div>
               <div class="card-footer">
@@ -111,8 +120,8 @@ class Profile extends Component {
                 <div class="card-icon">
                   <i class="material-icons">store</i>
                 </div>
-                <p class="card-category">Revenue</p>
-                <h3 class="card-title">$34,245</h3>
+                <p class="card-category">Tanggal Lahir</p>
+                <h3 class="card-title">{(this.state.date_of_birth === null) ? "Belum diisi" : this.state.date_of_birth}</h3>
               </div>
               <div class="card-footer">
                 <div class="stats">
@@ -127,8 +136,8 @@ class Profile extends Component {
                 <div class="card-icon">
                   <i class="material-icons">info_outline</i>
                 </div>
-                <p class="card-category">Fixed Issues</p>
-                <h3 class="card-title">75</h3>
+                <p class="card-category">Jenis Kelamin</p>
+                <h3 class="card-title">{(this.state.gender === null) ? "Belum diisi" : this.state.gender}</h3>
               </div>
               <div class="card-footer">
                 <div class="stats">
@@ -144,7 +153,7 @@ class Profile extends Component {
                   <i class="material-icons">alarm</i>
                 </div>
                 <p class="card-category">Tergabung Pada</p>
-                <h3 class="card-title">+245</h3>
+                <h3 class="card-title">{this.state.created_at.slice(0, 10)}</h3>
               </div>
               <div class="card-footer">
                 <div class="stats">
@@ -162,7 +171,7 @@ class Profile extends Component {
           <h3>Navigation Tabs</h3>
           <div class="row">
             <div class="col-md-6" style={{ display: this.state.profile_edit ? "none" : "block" }}>
-              <PersonalInfo state_change={this.state_change}/>
+              <PersonalInfo state_change={this.state_change} email={this.state.email} display_name={this.state.display_fullname} address={this.state.address}/>
             </div>
             <div class="col-md-6" style={{ display: this.state.profile_edit ? "block" : "none" }}>
               <PersonalInfoEdit state_change={this.state_change}/>
@@ -209,91 +218,6 @@ class Profile extends Component {
                           </td>
                           <td>
                             $36,738
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            2
-                          </td>
-                          <td>
-                            Minerva Hooper
-                          </td>
-                          <td>
-                            Curaçao
-                          </td>
-                          <td>
-                            Sinaai-Waas
-                          </td>
-                          <td>
-                            $23,789
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            3
-                          </td>
-                          <td>
-                            Sage Rodriguez
-                          </td>
-                          <td>
-                            Netherlands
-                          </td>
-                          <td>
-                            Baileux
-                          </td>
-                          <td>
-                            $56,142
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            4
-                          </td>
-                          <td>
-                            Philip Chaney
-                          </td>
-                          <td>
-                            Korea, South
-                          </td>
-                          <td>
-                            Overland Park
-                          </td>
-                          <td>
-                            $38,735
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            5
-                          </td>
-                          <td>
-                            Doris Greene
-                          </td>
-                          <td>
-                            Malawi
-                          </td>
-                          <td>
-                            Feldkirchen in Kärnten
-                          </td>
-                          <td>
-                            $63,542
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            6
-                          </td>
-                          <td>
-                            Mason Porter
-                          </td>
-                          <td>
-                            Chile
-                          </td>
-                          <td>
-                            Gloucester
-                          </td>
-                          <td>
-                            $78,615
                           </td>
                         </tr>
                       </tbody>

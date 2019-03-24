@@ -707,6 +707,10 @@ nav > div > span {
   background-color: #999127;
 }
 
+.card-header.card-header-success#card-infox {
+  background: #1e7438;
+}
+
 .card-icon.green {
   background: #1e7438 !important;
 }
