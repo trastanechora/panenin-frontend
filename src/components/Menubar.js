@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 // LIST IMPORT MODULE
 import React, { Component } from 'react';
 import { connect } from "unistore/react";
@@ -77,5 +78,4 @@ class Menubar extends Component {
 // EXPORT THE COMPONENT BODY
 // export default Menubar;
 export default connect(
-"product_state", actions)
-(withRouter(Menubar));
+"product_state", actions)(withRouter(Menubar));

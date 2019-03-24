@@ -1,6 +1,6 @@
 // LIST IMPORT MODULE
 import React, { Component } from 'react';
-// import axios from 'axios';
+import axios from 'axios';
 import { connect } from "unistore/react";
 import { actions } from '../Store';
 import { withRouter } from "react-router-dom";
@@ -23,6 +23,54 @@ class Profile extends Component {
         profile_edit: false
       };
   };
+
+  componentDidMount = async () => {
+    const token = localStorage.getItem("token")
+    console.log("TOKEEEEEEN", token)
+    // await axios({
+    //   method: 'post', //you can set what request you want to be
+    //   url: 'http://localhost:8010/proxy/api/public/login',
+    //   data: {id: varID},
+    //   headers: {
+    //     Authorization: 'Bearer ' + token
+    //   }
+    // }).then(function(response) {
+    //   console.log("Sukses get identity", response)
+    // }).catch(function(error) {
+    //   console.log("Gagal get identity", error);
+    // });
+
+    await axios({
+      method: 'get', //you can set what request you want to be
+      url: 'http://localhost:8010/proxy/api/public/login',
+      headers: {
+        Authorization: 'Bearer ' + token
+      }
+    }).then(function(response) {
+          console.log("Sukses get identity", response)
+        }).catch(function(error) {
+          console.log("Gagal get identity", error);
+        });
+
+    // await axios
+    //   .post(url_login, data)
+    //   .then(function(response) {
+    //       console.log("Sukses", response)
+    //       if (response.data.hasOwnProperty("token")) {
+    //           // console.log("cek token!", response.data.token)
+    //           store.setState({
+    //               is_login: true,
+    //               token: response.data.token,
+    //           });
+    //           localStorage.setItem('token', response.data.token)
+    //       } else {
+    //           console.log("Login Gagal");
+    //       }
+    //   })
+    //   .catch(function(error) {
+    //       console.log("Gagal", error);
+    //   });
+  }
 
   state_change = () => {
     const self = this;

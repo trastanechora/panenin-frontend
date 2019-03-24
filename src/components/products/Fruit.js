@@ -7,11 +7,10 @@ import axios from 'axios';
 import '../../css/bootstrap.min.css';
 import '../../css/style.css';
 import ListProduct from '../ListProduct'
-// import Pagination from '../Pagination'
-import Pagination from "react-js-pagination";
 
 const base_url = "http://0.0.0.0:5555/api/public/products"
 const paging = "?p="
+const category = "&category=buah"
 
 // COMPONENT BODY
 class Fruit extends Component {
@@ -21,21 +20,20 @@ class Fruit extends Component {
             ListProduct: [],
             page: 1,
             totalPage: 1,
-            url: base_url,
-
-            activePage: 1
+            totalProduct: 1,
+            url: base_url
         };
     };
     
     componentDidMount = async () => {
         const self = this;
-        var link = self.state.url + paging + self.state.page
+        var link = self.state.url + paging + self.state.page + category
         // console.log("test link dong", link)
         await axios
         .get(link)
         .then(function(response) {
             console.log("Sukses cek isi response", response.data)
-            self.setState({ListProduct: response.data.data, totalPage: response.data.total_page});
+            self.setState({ListProduct: response.data.data, totalPage: response.data.total_page, totalProduct: response.data.total_results});
         })
         .catch(function(error) {
             console.log("Gagal axios fruit", error);
@@ -44,24 +42,26 @@ class Fruit extends Component {
     };
 
     getNextPage = async () => {
-        await this.setState({ page: this.state.page + 1 })
-        await this.setState({ url: base_url + paging + this.state.page})
-        // console.log("test link dong", this.state.url)
-        const self = this;
-        await axios
-        .get(self.state.url)
-        .then(function(response) {
-            // console.log("Sukses", response.data)
-            self.setState({ListProduct: response.data.data});
-        })
-        .catch(function(error) {
-            console.log("Gagal axios fruit next page", error);
-        });
+        if (this.state.page < this.state.totalPage) {
+            await this.setState({ page: this.state.page + 1 })
+            await this.setState({ url: base_url + paging + this.state.page + category})
+            // console.log("test link dong", this.state.url)
+            const self = this;
+            await axios
+            .get(self.state.url)
+            .then(function(response) {
+                // console.log("Sukses", response.data)
+                self.setState({ListProduct: response.data.data});
+            })
+            .catch(function(error) {
+                console.log("Gagal axios fruit next page", error);
+            });
+        }
     };
     getPrevPage = async () => {
         if (this.state.page > 1) {
             await this.setState({ page: this.state.page - 1 })
-            await this.setState({ url: base_url + paging + this.state.page})
+            await this.setState({ url: base_url + paging + this.state.page + category})
             // console.log("test link dong", this.state.url)
             const self = this;
             await axios
@@ -76,10 +76,43 @@ class Fruit extends Component {
         }
         // console.log("test link dong", this.state.url)
     };
-    handlePageChange(pageNumber) {
-        console.log(`active page is ${pageNumber}`);
-        this.setState({activePage: pageNumber});
-      };
+    getPage = async (i) => {
+        await this.setState({ page: i})
+        await this.setState({ url: base_url + paging + this.state.page + category})
+        // console.log("test link dong", this.state.url)
+        const self = this;
+        await axios
+        .get(self.state.url)
+        .then(function(response) {
+            // console.log("Sukses", response.data)
+            self.setState({ListProduct: response.data.data});
+        })
+        .catch(function(error) {
+            console.log("Gagal axios fruit prev page", error);
+        });
+        // console.log("test link dong", this.state.url)
+    };
+
+    createPagination = () => {
+        let pages = []
+
+        for (let i = 1; i < this.state.totalPage + 1; i++) {
+            if (i == this.state.page) {
+                pages.push(
+                    <li className="page-item active">
+                        <a className="page-link">{i}</a>
+                    </li>
+                )
+            } else {
+                pages.push(
+                    <li className="page-item" onClick={() => this.getPage(i)}>
+                        <a className="page-link">{i}</a>
+                    </li>
+                )
+            }
+        }
+        return pages
+    };
 
     render() {
         return (
@@ -90,11 +123,11 @@ class Fruit extends Component {
                         <div className="col-lg-6 col-md-6 col-sm-12">
                             <div className="card card-stats">
                                 <div className="card-header card-header-success card-header-icon">
-                                    <div className="card-icon green">
+                                    <div className="card-icon">
                                         <i className="material-icons">content_copy</i>
                                     </div>
                                     <p className="card-category">Produk terdaftar</p>
-                                    <h3 className="card-title">23
+                                    <h3 className="card-title">{this.state.totalProduct}
                                         {/* <small> tersedia</small> */}
                                     </h3>
                                 </div>
@@ -110,7 +143,7 @@ class Fruit extends Component {
                         <div className="col-lg-6 col-md-6 col-sm-12">
                             <div className="card card-stats">
                                 <div className="card-header card-header-success card-header-icon">
-                                    <div className="card-icon green">
+                                    <div className="card-icon">
                                         <i className="material-icons">alarm</i>
                                     </div>
                                     <p className="card-category">Transaksi berhasil</p>
@@ -161,33 +194,9 @@ class Fruit extends Component {
                                                     <th>Bulan lalu</th>                                     
                                                     <th>Bulan ini</th>                          
                                                 <tr>
-                                                    <td>Padi</td>     
-                                                    <td>Rp. 4.874,-</td>
-                                                    <td>Rp. 5.255,-</td>                  
-                                                    <td>464.323 KG</td>
-                                                    <td>123.658 KG</td>
+                                                    {/* =========== Data for statistics put here =========== */}
                                                 </tr>
-                                                <tr>
-                                                    <td>Jagung</td>     
-                                                    <td>Rp. 6.523,-</td>
-                                                    <td>Rp. 5.241,-</td>                  
-                                                    <td>164.323 KG</td>
-                                                    <td>22.658 KG</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Kentang</td>     
-                                                    <td>Rp. 14.587,-</td>
-                                                    <td>Rp. 15.345,-</td>                  
-                                                    <td>264.234 KG</td>
-                                                    <td>14.658 KG</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Tebu</td>     
-                                                    <td>Rp. 7.490,-</td>
-                                                    <td>Rp. 8.223,--</td>                  
-                                                    <td>314.323 KG</td>
-                                                    <td>94.658 KG</td>
-                                                </tr>
+                                                
                                                 </tbody>
                                             </table>
                                         </div>
@@ -206,7 +215,7 @@ class Fruit extends Component {
                     </div>
                     <div className="row content-table">
                         <div className="card card-plain">
-                            <div className="card-header card-header-success green">
+                            <div className="card-header card-header-success">
                                 <h4 className="card-title mt-0"> Daftar Produk Panen Buah yang Tersedia</h4>
                                 <p className="card-category"> Klik tombol "Lihat" pada list di bawah untuk info lebih detail</p>
                             </div>
@@ -246,39 +255,11 @@ class Fruit extends Component {
                             <li className="page-item" onClick={() => this.getPrevPage()}>
                                 <a className="page-link" title="Back"><i className="material-icons keyboard_arrow_left">keyboard_arrow_left</i></a>
                             </li>
-                            <li className="page-item active">
-                                <a className="page-link" href="#">1</a>
-                            </li>
-                            <li className="page-item">
-                                <a className="page-link" href="#">2 <span className="sr-only">(current)</span></a>
-                            </li>
-                            <li className="page-item">
-                                <a className="page-link" href="#">3</a>
-                            </li>
-                            {/* {this.state.totalPage.map((item, key) => {
-                                // console.log("testing item value", item)
-                                // const name = item.name !== null ? item.name : "";
-                                // const category = item.category !== null ? item.category : "";
-                                // const type = item.product_type !== null ? item.product_type : "";
-                                // const location = item.location !== null ? item.location : "";
-                                // const quantity = item.amount !== null ? item.amount : "";
-                                // const price = item.price !== null ? item.price : "";
-                                // const id = item.id !== null ? item.id : "";
-                                return <Pagination key={key} />
-                            })} */}
+                            {this.createPagination()}
                             <li className="page-item" onClick={() => this.getNextPage()}>
                                 <a className="page-link" title="Next"><i className="material-icons keyboard_arrow_right">keyboard_arrow_right</i></a>
                             </li>
                         </ul>
-                    </div>
-                    <div className="container wrapper-content-list product-page">
-                    <Pagination
-                        activePage={this.state.activePage}
-                        itemsCountPerPage={10}
-                        totalItemsCount={450}
-                        pageRangeDisplayed={5}
-                        onChange={() =>this.handlePageChange}
-                        />
                     </div>
                 </div>
             </div>

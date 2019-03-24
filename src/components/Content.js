@@ -9,6 +9,8 @@ import '../css/style.css';
 import Landing from './Landing';
 import Fruit from './products/Fruit';
 import Core from './products/Core';
+import Fish1 from './products/Fish1';
+import Chicken from './products/Chicken';
 
 // COMPONENT BODY
 class Content extends Component {
@@ -50,6 +52,12 @@ class Content extends Component {
                 </div>
                 <div className={(this.props.product_state == "fruits") ? "container content-body shadow show" : "container content-body shadow"}>
                     <Fruit />
+                </div>
+                <div className={(this.props.product_state == "fish1") ? "container content-body shadow show" : "container content-body shadow"}>
+                    <Fish1 />
+                </div>
+                <div className={(this.props.product_state == "chickens") ? "container content-body shadow show" : "container content-body shadow"}>
+                    <Chicken />
                 </div>
             </div>
     )

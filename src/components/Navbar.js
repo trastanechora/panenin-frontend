@@ -41,8 +41,8 @@ class Navbar extends Component {
                     <Link to="/auth" className="btn btn-outline-success" onClick={() => this.changeStateTrue()}>DAFTAR</Link>
                 </div>
                 <div className="col-md-4" id="register-btn" style={{ display: (this.props.is_login) ? "inline-block" : "none" }}>
-                    <Link to="/auth" className="btn btn-outline-success login" onClick={() => this.changeStateFalse()}>KELUAR</Link>
-                    <Link to="/auth" className="btn btn-outline-success" onClick={() => this.changeStateTrue()}>PROFILE SAYA</Link>
+                    <Link to="/" className="btn btn-outline-success login" onClick={() => this.props.postLogout()}>KELUAR</Link>
+                    <Link to="/profile" className="btn btn-outline-success">PROFILE SAYA</Link>
                 </div>
                 {/* <!-- <div className="col-md-2" id="login-btn">LOGIN</div> --> */}
             </div>

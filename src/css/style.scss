@@ -826,9 +826,9 @@ input#response-offer {
    background-color: rgb(153, 145, 39);
 }
 
-.card-header.card-header-success#card-info {
-   background: $dark-green;
-}
+// .card-header.card-header-success#card-info {
+//    background: $dark-green;
+// }
 
 // .card-header.card-header-success.card-header-icon {
 .card-icon.green {
@@ -874,4 +874,19 @@ thead.text-success {
 
 .for-profile {
    padding-top: 100px;
+}
+
+input {
+   padding-left: 10px !important;
+   // line-height: 0 !important;
+}
+
+input.form-control:nth-child(1)::placeholder {
+   line-height: 25px;
+
+   border-radius: 10px !important;
+}
+
+label {
+   color: black !important;
 }

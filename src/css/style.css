@@ -707,10 +707,6 @@ nav > div > span {
   background-color: #999127;
 }
 
-.card-header.card-header-success#card-info {
-  background: #1e7438;
-}
-
 .card-icon.green {
   background: #1e7438 !important;
 }
@@ -749,6 +745,19 @@ thead.text-success .info-detail-table-header {
 
 .for-profile {
   padding-top: 100px;
+}
+
+input {
+  padding-left: 10px !important;
+}
+
+input.form-control:nth-child(1)::placeholder {
+  line-height: 25px;
+  border-radius: 10px !important;
+}
+
+label {
+  color: black !important;
 }
 
 /*# sourceMappingURL=style.css.map */

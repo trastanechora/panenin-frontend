@@ -18,6 +18,12 @@ class ContentAuth2 extends Component {
             // return <Redirect to={{ pathname: "/signin" }} />;
         });
     };
+    doRegister = () => {
+        this.props.postRegister().then(()=> {
+            this.props.history.replace("/profile");
+            // return <Redirect to={{ pathname: "/signin" }} />;
+        });
+    };
     render() {
         return (
             <div class="col-md-5 register-form-area">
@@ -27,29 +33,29 @@ class ContentAuth2 extends Component {
                         <form onSubmit={e => e.preventDefault()}>
                             <div class="form-group">
                                 <label for="exampleInputEmail1">E-mail</label>
-                                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="email@domain.com" />
+                                <input onChange={e => this.props.setField(e)} name="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="email@domain.com" />
                                 {/* <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> --> */}
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Masukkan ulang E-mail</label>
-                                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="email@domain.com" />
+                                <input onChange={e => this.props.setField(e)} name="email_confirmation" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="email@domain.com" />
                                 {/* <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> --> */}
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Username</label>
-                                <input type="text" class="form-control" id="exampleInputEmail1" placeholder="usernameanda" />
+                                <input onChange={e => this.props.setField(e)} name="username" type="text" class="form-control" id="exampleInputEmail1" placeholder="usernameanda" />
                                 {/* <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> --> */}
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputPassword1">Password</label>
-                                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="********" />
+                                <input onChange={e => this.props.setField(e)} name="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="********" />
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputPassword1">Masukkan ulang password</label>
-                                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="********" />
+                                <input onChange={e => this.props.setField(e)} name="password_confirmation" type="password" class="form-control" id="exampleInputPassword1" placeholder="********" />
                             </div>
-                            <button id="register-button" type="submit" class="btn btn-outline-success login">Daftar</button>
-                            <p id="register-to-login">Sudah memiliki akun? Silahkan login di <a href="#" onClick={() => this.changeState()}>sini</a> .</p>
+                            <button onClick={() => this.doRegister()} id="register-button" type="submit" class="btn btn-outline-success login">Daftar</button>
+                            <p id="register-to-login">Sudah memiliki akun? Silahkan login di <a onClick={() => this.changeState()}>sini</a> .</p>
                         </form>
                     </div>
                 </div>
@@ -79,5 +85,4 @@ class ContentAuth2 extends Component {
 // EXPORT THE COMPONENT BODY
 // export default ContentAuth2;
 export default connect(
-    "auth_state", actions)
-(withRouter(ContentAuth2));
+    "auth_state", actions)(withRouter(ContentAuth2));
