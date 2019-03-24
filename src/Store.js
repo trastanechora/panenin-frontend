@@ -2,6 +2,9 @@
 import createStore from 'unistore';
 import axios from "axios"
 
+const base_url = "http://0.0.0.0:5555/api/public/products"
+const paging = "?p="
+
 // SET THE GLOBAL STATE VARIABLES
 const initialState = {
     test: "",
@@ -9,8 +12,12 @@ const initialState = {
     username: "",
     password: "",
     is_login: false,
-    product_state: "home"
+    product_state: "home",
+
+    page: 1,
+    url: base_url
 };
+
 export const store = createStore(initialState)
 
 // STORE ACTIONS MODULE

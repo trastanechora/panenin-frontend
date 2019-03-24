@@ -14,7 +14,7 @@ class ContentAuth2 extends Component {
     };
     doLogin = () => {
         this.props.postLogin().then(()=> {
-            this.props.history.replace("/detail");
+            this.props.history.replace("/");
             // return <Redirect to={{ pathname: "/signin" }} />;
         });
     };

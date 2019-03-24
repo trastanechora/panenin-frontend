@@ -7,34 +7,79 @@ import axios from 'axios';
 import '../../css/bootstrap.min.css';
 import '../../css/style.css';
 import ListProduct from '../ListProduct'
+// import Pagination from '../Pagination'
+import Pagination from "react-js-pagination";
+
+const base_url = "http://0.0.0.0:5555/api/public/products"
+const paging = "?p="
 
 // COMPONENT BODY
 class Fruit extends Component {
     constructor (props) {
         super(props);
           this.state = {
-            ListProduct: []
+            ListProduct: [],
+            page: 1,
+            totalPage: 1,
+            url: base_url,
+
+            activePage: 1
         };
     };
-
+    
     componentDidMount = async () => {
         const self = this;
-        // console.log("test get product")
+        var link = self.state.url + paging + self.state.page
+        // console.log("test link dong", link)
         await axios
-        .get("http://0.0.0.0:5555/api/public/products")
+        .get(link)
+        .then(function(response) {
+            console.log("Sukses cek isi response", response.data)
+            self.setState({ListProduct: response.data.data, totalPage: response.data.total_page});
+        })
+        .catch(function(error) {
+            console.log("Gagal axios fruit", error);
+        });
+        // console.log("Local state from fruit", this.state.ListProduct)
+    };
+
+    getNextPage = async () => {
+        await this.setState({ page: this.state.page + 1 })
+        await this.setState({ url: base_url + paging + this.state.page})
+        // console.log("test link dong", this.state.url)
+        const self = this;
+        await axios
+        .get(self.state.url)
         .then(function(response) {
             // console.log("Sukses", response.data)
             self.setState({ListProduct: response.data.data});
         })
         .catch(function(error) {
-            console.log("Gagal axios fruit", error);
+            console.log("Gagal axios fruit next page", error);
         });
-        console.log("Local state from fruit", this.state.ListProduct)
-    }
-
-    // redirectDetail = () => {
-    //     this.props.history.replace("/detail");
-    // };
+    };
+    getPrevPage = async () => {
+        if (this.state.page > 1) {
+            await this.setState({ page: this.state.page - 1 })
+            await this.setState({ url: base_url + paging + this.state.page})
+            // console.log("test link dong", this.state.url)
+            const self = this;
+            await axios
+            .get(self.state.url)
+            .then(function(response) {
+                // console.log("Sukses", response.data)
+                self.setState({ListProduct: response.data.data});
+            })
+            .catch(function(error) {
+                console.log("Gagal axios fruit prev page", error);
+            });
+        }
+        // console.log("test link dong", this.state.url)
+    };
+    handlePageChange(pageNumber) {
+        console.log(`active page is ${pageNumber}`);
+        this.setState({activePage: pageNumber});
+      };
 
     render() {
         return (
@@ -191,36 +236,58 @@ class Fruit extends Component {
                                             return <ListProduct key={key} name={name} category={category} type={type} location={location} quantity={quantity} price={price} number={key + 1} id={id} />
                                         })}
                                     </tbody>
-                                    </table>
-                                </div>
+                                </table>
                             </div>
                         </div>
-                        <div className="container wrapper-content-list product-page">
-                            {/* <!-- TEST --> */}
-                            <ul className="pagination justify-content-center">
-                                <li className="page-item">
-                                    <a className="page-link" href="#" title="Back"><i className="material-icons keyboard_arrow_left">keyboard_arrow_left</i></a>
-                                </li>
-                                <li className="page-item active">
-                                    <a className="page-link" href="#">1</a>
-                                </li>
-                                <li className="page-item">
-                                    <a className="page-link" href="#">2 <span className="sr-only">(current)</span></a>
-                                </li>
-                                <li className="page-item">
-                                    <a className="page-link" href="#">3</a>
-                                </li>
-                                <li className="page-item">
-                                    <a className="page-link" href="#" title="Next"><i className="material-icons keyboard_arrow_right">keyboard_arrow_right</i></a>
-                                </li>
-                            </ul>
-                        </div>
+                    </div>
+                    <div className="container wrapper-content-list product-page">
+                        {/* <!-- TEST --> */}
+                        <ul className="pagination justify-content-center">
+                            <li className="page-item" onClick={() => this.getPrevPage()}>
+                                <a className="page-link" title="Back"><i className="material-icons keyboard_arrow_left">keyboard_arrow_left</i></a>
+                            </li>
+                            <li className="page-item active">
+                                <a className="page-link" href="#">1</a>
+                            </li>
+                            <li className="page-item">
+                                <a className="page-link" href="#">2 <span className="sr-only">(current)</span></a>
+                            </li>
+                            <li className="page-item">
+                                <a className="page-link" href="#">3</a>
+                            </li>
+                            {/* {this.state.totalPage.map((item, key) => {
+                                // console.log("testing item value", item)
+                                // const name = item.name !== null ? item.name : "";
+                                // const category = item.category !== null ? item.category : "";
+                                // const type = item.product_type !== null ? item.product_type : "";
+                                // const location = item.location !== null ? item.location : "";
+                                // const quantity = item.amount !== null ? item.amount : "";
+                                // const price = item.price !== null ? item.price : "";
+                                // const id = item.id !== null ? item.id : "";
+                                return <Pagination key={key} />
+                            })} */}
+                            <li className="page-item" onClick={() => this.getNextPage()}>
+                                <a className="page-link" title="Next"><i className="material-icons keyboard_arrow_right">keyboard_arrow_right</i></a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div className="container wrapper-content-list product-page">
+                    <Pagination
+                        activePage={this.state.activePage}
+                        itemsCountPerPage={10}
+                        totalItemsCount={450}
+                        pageRangeDisplayed={5}
+                        onChange={() =>this.handlePageChange}
+                        />
                     </div>
                 </div>
             </div>
+        </div>
         );
     }
 }
+
+
 
 // EXPORT THE COMPONENT BODY
 // export default Fruit;
