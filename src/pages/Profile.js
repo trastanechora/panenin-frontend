@@ -5,107 +5,261 @@ import { connect } from "unistore/react";
 import { actions } from '../Store';
 import { withRouter } from "react-router-dom";
 import { Redirect } from "react-router-dom";
-// import '../css/material-dashboard.css';
 import '../css/bootstrap.min.css';
 import '../css/style2.css';
 import '../css/style.css';
-// import Navbar from '../components/Navbar';
-// import Banner from '../components/Banner';
-// import Menubar from '../components/Menubar';
-// import Content from '../components/Content';
-// import Footer from '../components/Footer';
-// import ContentAuth1 from '../components/ContentAuth1';
-// import ContentAuth2 from '../components/ContentAuth2';
+import Navbar from '../components/Navbar';
+import PersonalInfo from '../components/PersonalInfo';
+import PersonalInfoEdit from '../components/PersonalInfoEdit';
+import AddProduct from '../components/AddProduct';
+
 
 
 //MAIN CLASS
 class Profile extends Component {
-  // constructor (props) {
-  //   super(props);
-  //     this.state = {
-  //       movieList: []
-  //     };
-  // };
-
-  componentDidMount = async () => {
-    console.log("Hello Panenin.com")
+  constructor (props) {
+    super(props);
+      this.state = {
+        profile_edit: false
+      };
   };
 
+  state_change = () => {
+    const self = this;
+    self.setState({ profile_edit: !this.state.profile_edit });
+  };
 
   render() {
-    console.log("Cek trorage", localStorage.getItem('token'))
+    console.log("Cek state profile", this.state.profile_edit)
     if (localStorage.getItem('token') == null) {
       return <Redirect to={{ pathname: "/auth" }} />;
     } else {
     return (
-      <div class="row">
-        <div class="col-lg-3 col-md-6 col-sm-6">
-          <div class="card card-stats">
-            <div class="card-header card-header-warning card-header-icon">
-              <div class="card-icon">
-                <i class="material-icons">content_copy</i>
+      <div className="container-fluid for-banner">
+        <Navbar />
+        <div class="container footer-handler row for-profile">
+          <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="card card-stats">
+              <div class="card-header card-header-danger card-header-icon">
+                <div class="card-icon">
+                  <i class="material-icons">content_copy</i>
+                </div>
+                <p class="card-category">ID Pengguna</p>
+                <h3 class="card-title">23
+                  <small>GB</small>
+                </h3>
               </div>
-              <p class="card-category">Used Space</p>
-              <h3 class="card-title">49/50
-                <small>GB</small>
-              </h3>
+              <div class="card-footer">
+                <div class="stats">
+                  <i class="material-icons">warning</i>
+                  <a href="#">Get More Space...</a>
+                </div>
+              </div>
             </div>
-            <div class="card-footer">
-              <div class="stats">
-                <i class="material-icons text-danger">warning</i>
-                <a href="#pablo">Get More Space...</a>
+          </div>
+          <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="card card-stats">
+              <div class="card-header card-header-danger card-header-icon">
+                <div class="card-icon">
+                  <i class="material-icons">store</i>
+                </div>
+                <p class="card-category">Revenue</p>
+                <h3 class="card-title">$34,245</h3>
+              </div>
+              <div class="card-footer">
+                <div class="stats">
+                  <i class="material-icons">date_range</i> Last 24 Hours
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="card card-stats">
+              <div class="card-header card-header-danger card-header-icon">
+                <div class="card-icon">
+                  <i class="material-icons">info_outline</i>
+                </div>
+                <p class="card-category">Fixed Issues</p>
+                <h3 class="card-title">75</h3>
+              </div>
+              <div class="card-footer">
+                <div class="stats">
+                  <i class="material-icons">local_offer</i> Tracked from Github
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="card card-stats">
+              <div class="card-header card-header-danger card-header-icon">
+                <div class="card-icon">
+                  <i class="material-icons">alarm</i>
+                </div>
+                <p class="card-category">Tergabung Pada</p>
+                <h3 class="card-title">+245</h3>
+              </div>
+              <div class="card-footer">
+                <div class="stats">
+                  <i class="material-icons">update</i> Just Updated
+                </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="col-lg-3 col-md-6 col-sm-6">
-          <div class="card card-stats">
-            <div class="card-header card-header-success card-header-icon">
-              <div class="card-icon">
-                <i class="material-icons">store</i>
-              </div>
-              <p class="card-category">Revenue</p>
-              <h3 class="card-title">$34,245</h3>
+
+        {/* TEST */}
+        <div class="section section-tabs">
+      <div class="container">
+        <div id="nav-tabs">
+          <h3>Navigation Tabs</h3>
+          <div class="row">
+            <div class="col-md-6" style={{ display: this.state.profile_edit ? "none" : "block" }}>
+              <PersonalInfo state_change={this.state_change}/>
             </div>
-            <div class="card-footer">
-              <div class="stats">
-                <i class="material-icons">date_range</i> Last 24 Hours
+            <div class="col-md-6" style={{ display: this.state.profile_edit ? "block" : "none" }}>
+              <PersonalInfoEdit state_change={this.state_change}/>
+            </div>
+            <div class="col-md-6">
+              <div class="card card-plain">
+                <div class="card-header card-header-danger">
+                  <h4 class="card-title mt-0"> Daftar Produk Anda yang Terdaftar</h4>
+                  <p class="card-category"> Klik salah satu untuk melihat detailnya</p>
+                </div>
+                <div class="card-body">
+                  <div class="table-responsive">
+                    <table class="table table-hover">
+                      <thead class="">
+                        <th>
+                          ID
+                        </th>
+                        <th>
+                          Name
+                        </th>
+                        <th>
+                          Country
+                        </th>
+                        <th>
+                          City
+                        </th>
+                        <th>
+                          Salary
+                        </th>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>
+                            1
+                          </td>
+                          <td>
+                            Dakota Rice
+                          </td>
+                          <td>
+                            Niger
+                          </td>
+                          <td>
+                            Oud-Turnhout
+                          </td>
+                          <td>
+                            $36,738
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            2
+                          </td>
+                          <td>
+                            Minerva Hooper
+                          </td>
+                          <td>
+                            Curaçao
+                          </td>
+                          <td>
+                            Sinaai-Waas
+                          </td>
+                          <td>
+                            $23,789
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            3
+                          </td>
+                          <td>
+                            Sage Rodriguez
+                          </td>
+                          <td>
+                            Netherlands
+                          </td>
+                          <td>
+                            Baileux
+                          </td>
+                          <td>
+                            $56,142
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            4
+                          </td>
+                          <td>
+                            Philip Chaney
+                          </td>
+                          <td>
+                            Korea, South
+                          </td>
+                          <td>
+                            Overland Park
+                          </td>
+                          <td>
+                            $38,735
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            5
+                          </td>
+                          <td>
+                            Doris Greene
+                          </td>
+                          <td>
+                            Malawi
+                          </td>
+                          <td>
+                            Feldkirchen in Kärnten
+                          </td>
+                          <td>
+                            $63,542
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            6
+                          </td>
+                          <td>
+                            Mason Porter
+                          </td>
+                          <td>
+                            Chile
+                          </td>
+                          <td>
+                            Gloucester
+                          </td>
+                          <td>
+                            $78,615
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
               </div>
             </div>
+            <AddProduct />
           </div>
         </div>
-        <div class="col-lg-3 col-md-6 col-sm-6">
-          <div class="card card-stats">
-            <div class="card-header card-header-danger card-header-icon">
-              <div class="card-icon">
-                <i class="material-icons">info_outline</i>
-              </div>
-              <p class="card-category">Fixed Issues</p>
-              <h3 class="card-title">75</h3>
-            </div>
-            <div class="card-footer">
-              <div class="stats">
-                <i class="material-icons">local_offer</i> Tracked from Github
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-3 col-md-6 col-sm-6">
-          <div class="card card-stats">
-            <div class="card-header card-header-info card-header-icon">
-              <div class="card-icon">
-                <i class="material-icons">alarm</i>
-              </div>
-              <p class="card-category">Followers</p>
-              <h3 class="card-title">+245</h3>
-            </div>
-            <div class="card-footer">
-              <div class="stats">
-                <i class="material-icons">update</i> Just Updated
-              </div>
-            </div>
-          </div>
-        </div>
+      </div>
+    </div>
+        {/* TEST */}
       </div>
     );
   }}

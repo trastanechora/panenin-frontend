@@ -3,12 +3,39 @@ import React, { Component } from 'react';
 import { connect } from "unistore/react";
 import { actions } from '../../Store';
 import { withRouter } from "react-router-dom";
-// import '../css/material-dashboard.css';
+import axios from 'axios';
 import '../../css/bootstrap.min.css';
 import '../../css/style.css';
+import ListProduct from '../ListProduct'
 
 // COMPONENT BODY
 class Fruit extends Component {
+    constructor (props) {
+        super(props);
+          this.state = {
+            ListProduct: []
+        };
+    };
+
+    componentDidMount = async () => {
+        const self = this;
+        // console.log("test get product")
+        await axios
+        .get("http://0.0.0.0:5555/api/public/products")
+        .then(function(response) {
+            // console.log("Sukses", response.data)
+            self.setState({ListProduct: response.data.data});
+        })
+        .catch(function(error) {
+            console.log("Gagal axios fruit", error);
+        });
+        console.log("Local state from fruit", this.state.ListProduct)
+    }
+
+    // redirectDetail = () => {
+    //     this.props.history.replace("/detail");
+    // };
+
     render() {
         return (
             <div className="container content-body">
@@ -60,70 +87,6 @@ class Fruit extends Component {
                             <div className="row">
                                 <div className="col-md-12">
                                 {/* =========== START of Statistic Card =========== */}
-                                    {/* <div className="card card-chart">
-                                        <div className="card-header card-header-success" id="card-info">
-                                            <div className="ct-chart" id="dailySalesChart"><h4 className="card-title">Statistika Dagang Bulanan</h4></div>
-                                        </div>
-                                        <div className="card-body">
-                                            <div className="header-conent container row">
-                                                <div className="col-md-2 th-content"><strong><i>Tipe Produk</i></strong></div>
-                                                <div className="col-md-5">
-                                                    <div className="col-md-12 th-content"><strong><i>Rata-rata Harga / KG</i></strong></div>
-                                                    <div className="col-md-12 row">
-                                                        <div className="col-md-6"><strong><i>Bulan lalu</i></strong></div>
-                                                        <div className="col-md-6"><strong><i>Bulan ini</i></strong></div>
-                                                    </div>
-                                                </div>
-                                                <div className="col-md-5">
-                                                    <div className="col-md-12 th-content"><strong><i>Kuantitas Terjual (KG)</i></strong></div>
-                                                    <div className="col-md-12 row">
-                                                        <div className="col-md-6"><strong><i>Bulan lalu</i></strong></div>
-                                                        <div className="col-md-6"><strong><i>Bulan ini</i></strong></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="container row">
-                                                <div className="col-md-2">Padi</div>
-                                                <div className="col-md-2">Rp. 4.874,-</div>
-                                                <div className="col-md-2">Rp. 5.255,</div>
-                                                <div className="col-md-1"></div>
-                                                <div className="col-md-2">464.323 KG</div>
-                                                <div className="col-md-2">123.658 KG</div>
-                                            </div>
-                                            <div className="container row">
-                                                <div className="col-md-2">Jagung</div>
-                                                <div className="col-md-2">Rp. 6.523,-</div>
-                                                <div className="col-md-2">Rp. 5.241,</div>
-                                                <div className="col-md-1"></div>
-                                                <div className="col-md-2">164.323 KG</div>
-                                                <div className="col-md-2">22.658 KG</div>
-                                            </div>
-                                            <div className="container row">
-                                                <div className="col-md-2">Kentang</div>
-                                                <div className="col-md-2">Rp. 14.587,-</div>
-                                                <div className="col-md-2">Rp. 15.345,</div>
-                                                <div className="col-md-1"></div>
-                                                <div className="col-md-2">264.234 KG</div>
-                                                <div className="col-md-2">14.658 KG</div>
-                                            </div>
-                                            <div className="container row">
-                                                <div className="col-md-2">Tebu</div>
-                                                <div className="col-md-2">Rp. 7.490,-</div>
-                                                <div className="col-md-2">Rp. 8.223,</div>
-                                                <div className="col-md-1"></div>
-                                                <div className="col-md-2">314.323 KG</div>
-                                                <div className="col-md-2">94.658 KG</div>
-                                            </div>
-                                        </div>
-                                        <div className="card-footer">
-                                            <div className="stats">
-                                                <i className="material-icons">access_time</i> updated 4 minutes ago
-                                            </div>
-                                        </div>
-                                    </div>    */}
-
-                                    {/* TEST */}
-
                                     <div className="card card-chart">
                                         <div className="card-header card-header-success" id="card-info">
                                             <div className="ct-chart" id="dailySalesChart"><h4 className="card-title">Statistika Dagang Bulanan</h4></div>
@@ -131,7 +94,7 @@ class Fruit extends Component {
                                         <div className="card-body">
                                             <table className="table">
                                                 <thead className="text-success">
-                                                    <th>
+                                                    <th> 
                                                         Tipe Produk
                                                     </th>
                                                     <th>
@@ -200,265 +163,33 @@ class Fruit extends Component {
                         <div className="card card-plain">
                             <div className="card-header card-header-success green">
                                 <h4 className="card-title mt-0"> Daftar Produk Panen Buah yang Tersedia</h4>
-                                <p className="card-category"> Klik salah satu pada list di bawah untuk info lebih detail</p>
+                                <p className="card-category"> Klik tombol "Lihat" pada list di bawah untuk info lebih detail</p>
                             </div>
                             <div className="card-body">
                                 <div className="table-responsive">
                                     <table className="table table-hover">
                                     <thead className="text-success">
-                                        <th>
-                                        No
-                                        </th>
-                                        <th>
-                                        Nama
-                                        </th>
-                                        <th>
-                                        Kategori
-                                        </th>
-                                        <th>
-                                        Tipe
-                                        </th>
-                                        <th>
-                                        Lokasi
-                                        </th>
-                                        <th>
-                                        Kuantitas
-                                        </th>
-                                        <th>
-                                        Harga
-                                        </th>
+                                        <th>No</th>
+                                        <th>Nama</th>
+                                        <th>Kategori</th>
+                                        <th>Tipe</th>
+                                        <th>Lokasi</th>
+                                        <th>Kuantitas</th>
+                                        <th>Harga</th>
+                                        <th>Link</th>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                        <td>
-                                            1
-                                        </td>
-                                        <td>
-                                            Dakota Rice
-                                        </td>
-                                        <td>
-                                            Niger
-                                        </td>
-                                        <td>
-                                            Oud-Turnhout
-                                        </td>
-                                        <td>
-                                            $36,738
-                                        </td>
-                                        <td>
-                                            $36,738
-                                        </td>
-                                        <td>
-                                            $36,738
-                                        </td>
-                                        </tr>
-                                        <tr>
-                                        <td>
-                                            2
-                                        </td>
-                                        <td>
-                                            Minerva Hooper
-                                        </td>
-                                        <td>
-                                            Curaçao
-                                        </td>
-                                        <td>
-                                            Sinaai-Waas
-                                        </td>
-                                        <td>
-                                            $23,789
-                                        </td>
-                                        <td>
-                                            $36,738
-                                        </td>
-                                        <td>
-                                            $36,738
-                                        </td>
-                                        </tr>
-                                        <tr>
-                                        <td>
-                                            3
-                                        </td>
-                                        <td>
-                                            Sage Rodriguez
-                                        </td>
-                                        <td>
-                                            Netherlands
-                                        </td>
-                                        <td>
-                                            Baileux
-                                        </td>
-                                        <td>
-                                            $56,142
-                                        </td>
-                                        <td>
-                                            $36,738
-                                        </td>
-                                        <td>
-                                            $36,738
-                                        </td>
-                                        </tr>
-                                        <tr>
-                                        <td>
-                                            4
-                                        </td>
-                                        <td>
-                                            Philip Chaney
-                                        </td>
-                                        <td>
-                                            Korea, South
-                                        </td>
-                                        <td>
-                                            Overland Park
-                                        </td>
-                                        <td>
-                                            $38,735
-                                        </td>
-                                        <td>
-                                            $36,738
-                                        </td>
-                                        <td>
-                                            $36,738
-                                        </td>
-                                        </tr>
-                                        <tr>
-                                        <td>
-                                            5
-                                        </td>
-                                        <td>
-                                            Doris Greene
-                                        </td>
-                                        <td>
-                                            Malawi
-                                        </td>
-                                        <td>
-                                            Feldkirchen in Kärnten
-                                        </td>
-                                        <td>
-                                            $63,542
-                                        </td>
-                                        <td>
-                                            $36,738
-                                        </td>
-                                        <td>
-                                            $36,738
-                                        </td>
-                                        </tr>
-                                        <tr>
-                                        <td>
-                                            6
-                                        </td>
-                                        <td>
-                                            Doris Greene
-                                        </td>
-                                        <td>
-                                            Malawi
-                                        </td>
-                                        <td>
-                                            Feldkirchen in Kärnten
-                                        </td>
-                                        <td>
-                                            $63,542
-                                        </td>
-                                        <td>
-                                            $36,738
-                                        </td>
-                                        <td>
-                                            $36,738
-                                        </td>
-                                        </tr>
-                                        <tr>
-                                        <td>
-                                            7
-                                        </td>
-                                        <td>
-                                            Mason Porter
-                                        </td>
-                                        <td>
-                                            Chile
-                                        </td>
-                                        <td>
-                                            Gloucester
-                                        </td>
-                                        <td>
-                                            $78,615
-                                        </td>
-                                        <td>
-                                            $36,738
-                                        </td>
-                                        <td>
-                                            $36,738
-                                        </td>
-                                        </tr>
-                                        <tr>
-                                        <td>
-                                            8
-                                        </td>
-                                        <td>
-                                            Mason Porter
-                                        </td>
-                                        <td>
-                                            Chile
-                                        </td>
-                                        <td>
-                                            Gloucester
-                                        </td>
-                                        <td>
-                                            $78,615
-                                        </td>
-                                        <td>
-                                            $36,738
-                                        </td>
-                                        <td>
-                                            $36,738
-                                        </td>
-                                        </tr>
-                                        <tr>
-                                        <td>
-                                            9
-                                        </td>
-                                        <td>
-                                            Mason Porter
-                                        </td>
-                                        <td>
-                                            Chile
-                                        </td>
-                                        <td>
-                                            Gloucester
-                                        </td>
-                                        <td>
-                                            $78,615
-                                        </td>
-                                        <td>
-                                            $36,738
-                                        </td>
-                                        <td>
-                                            $36,738
-                                        </td>
-                                        </tr>
-                                        <tr>
-                                        <td>
-                                            10
-                                        </td>
-                                        <td>
-                                            Mason Porter
-                                        </td>
-                                        <td>
-                                            Chile
-                                        </td>
-                                        <td>
-                                            Gloucester
-                                        </td>
-                                        <td>
-                                            $78,615
-                                        </td>
-                                        <td>
-                                            $36,738
-                                        </td>
-                                        <td>
-                                            $36,738
-                                        </td>
-                                        </tr>
+                                        {this.state.ListProduct.map((item, key) => {
+                                            // console.log("testing item value", item)
+                                            const name = item.name !== null ? item.name : "";
+                                            const category = item.category !== null ? item.category : "";
+                                            const type = item.product_type !== null ? item.product_type : "";
+                                            const location = item.location !== null ? item.location : "";
+                                            const quantity = item.amount !== null ? item.amount : "";
+                                            const price = item.price !== null ? item.price : "";
+                                            const id = item.id !== null ? item.id : "";
+                                            return <ListProduct key={key} name={name} category={category} type={type} location={location} quantity={quantity} price={price} number={key + 1} id={id} />
+                                        })}
                                     </tbody>
                                     </table>
                                 </div>

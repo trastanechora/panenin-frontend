@@ -16,12 +16,12 @@ import Footer from '../components/Footer';
 
 //MAIN CLASS
 class Home extends Component {
-  constructor (props) {
-    super(props);
-      this.state = {
-        movieList: []
-      };
-  };
+  // constructor (props) {
+  //   super(props);
+  //     this.state = {
+  //       movieList: []
+  //     };
+  // };
 
   componentDidMount = async () => {
     console.log("Hello Panenin.com")

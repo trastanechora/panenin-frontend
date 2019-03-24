@@ -20,6 +20,7 @@ class MainRoute extends Component {
         <Route exact path="/auth" component={ Auth } />
         <Route exact path="/profile" component={ Profile } />
         <Route exact path="/detail" component={ Detail } />
+        <Route exact path="/detail/:id" component={ Detail } />
       </Switch>
     );
   }

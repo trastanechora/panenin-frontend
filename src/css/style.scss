@@ -15,7 +15,7 @@ body {
    bottom: 0;
 }
 
-.logo {
+.logo-panenin {
    max-width: 100px;
    display: block;
    margin-right: auto;
@@ -265,16 +265,18 @@ ol.carousel-indicators {
 }
 
 .form-control.mr-sm-2.search {
-   background-color: $dark-green;
+   background-color: $dark-green !important;
    color: white;
    font-size: 14px;
    border-color: white;
+   border-radius: 5px;
 }
 
 input.form-control.mr-sm-2.search::placeholder {
    color: $dark-green;
-   font-size: 14px;
+   font-size: 16px;
    background-color: white;
+   vertical-align: middle;
  }
 
 // input.form-control.mr-sm-2.search:focus {
@@ -859,4 +861,17 @@ input#response-offer {
 
 .container.wrapper-content-description {
    margin-bottom: 20px;
+}
+
+thead.text-success {
+   .info-detail-table-header {
+      border-bottom: none;
+   }
+}
+
+
+// ============= PROFILE PAGE START HERE ===============
+
+.for-profile {
+   padding-top: 100px;
 }

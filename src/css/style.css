@@ -5,7 +5,7 @@ body {
   bottom: 0;
 }
 
-.logo {
+.logo-panenin {
   max-width: 100px;
   display: block;
   margin-right: auto;
@@ -211,16 +211,18 @@ ol.carousel-indicators li {
 }
 
 .form-control.mr-sm-2.search {
-  background-color: #1e7438;
+  background-color: #1e7438 !important;
   color: white;
   font-size: 14px;
   border-color: white;
+  border-radius: 5px;
 }
 
 input.form-control.mr-sm-2.search::placeholder {
   color: #1e7438;
-  font-size: 14px;
+  font-size: 16px;
   background-color: white;
+  vertical-align: middle;
 }
 
 input.form-control.mr-sm-2.search:focus {
@@ -739,6 +741,14 @@ nav > div > span {
 
 .container.wrapper-content-description {
   margin-bottom: 20px;
+}
+
+thead.text-success .info-detail-table-header {
+  border-bottom: none;
+}
+
+.for-profile {
+  padding-top: 100px;
 }
 
 /*# sourceMappingURL=style.css.map */

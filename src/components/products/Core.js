@@ -11,73 +11,73 @@ class Core extends Component {
                 // <div className="container content-body shadow">
                         <div className="container content-body">
                                 {/* TEST */}
-                                <div class="row">
-                                    <div class="col-lg-3 col-md-6 col-sm-6">
-                                        <div class="card card-stats">
-                                            <div class="card-header card-header-warning card-header-icon">
-                                            <div class="card-icon">
-                                                <i class="material-icons">content_copy</i>
+                                <div className="row">
+                                    <div className="col-lg-3 col-md-6 col-sm-6">
+                                        <div className="card card-stats">
+                                            <div className="card-header card-header-warning card-header-icon">
+                                            <div className="card-icon">
+                                                <i className="material-icons">content_copy</i>
                                             </div>
-                                            <p class="card-category">Produk terdaftar</p>
-                                            <h3 class="card-title">23
+                                            <p className="card-category">Produk terdaftar</p>
+                                            <h3 className="card-title">23
                                                 {/* <small> tersedia</small> */}
                                             </h3>
                                             </div>
-                                            <div class="card-footer">
-                                            <div class="stats">
-                                                {/* <i class="material-icons text-danger">warning</i> */}
+                                            <div className="card-footer">
+                                            <div className="stats">
+                                                {/* <i className="material-icons text-danger">warning</i> */}
                                                 {/* <a href="#pablo">Get More Space...</a> */}
-                                                <i class="material-icons">date_range</i> Last 24 Hours
+                                                <i className="material-icons">date_range</i> Last 24 Hours
                                             </div>
                                             </div>
                                         </div>
                                         </div>
-                                        <div class="col-lg-3 col-md-6 col-sm-6">
-                                        <div class="card card-stats">
-                                            <div class="card-header card-header-warning card-header-icon">
-                                            <div class="card-icon">
-                                                <i class="material-icons">store</i>
+                                        <div className="col-lg-3 col-md-6 col-sm-6">
+                                        <div className="card card-stats">
+                                            <div className="card-header card-header-warning card-header-icon">
+                                            <div className="card-icon">
+                                                <i className="material-icons">store</i>
                                             </div>
-                                            <p class="card-category">Penjual aktif</p>
-                                            <h3 class="card-title">123
+                                            <p className="card-category">Penjual aktif</p>
+                                            <h3 className="card-title">123
                                             {/* <small> User</small> */}
                                             </h3>
                                             </div>
-                                            <div class="card-footer">
-                                            <div class="stats">
-                                                <i class="material-icons">date_range</i> Last 24 Hours
+                                            <div className="card-footer">
+                                            <div className="stats">
+                                                <i className="material-icons">date_range</i> Last 24 Hours
                                             </div>
                                             </div>
                                         </div>
                                         </div>
-                                        <div class="col-lg-3 col-md-6 col-sm-6">
-                                        <div class="card card-stats">
-                                            <div class="card-header card-header-warning card-header-icon">
-                                            <div class="card-icon">
-                                                <i class="material-icons">info_outline</i>
+                                        <div className="col-lg-3 col-md-6 col-sm-6">
+                                        <div className="card card-stats">
+                                            <div className="card-header card-header-warning card-header-icon">
+                                            <div className="card-icon">
+                                                <i className="material-icons">info_outline</i>
                                             </div>
-                                            <p class="card-category">Jumlah pengguna</p>
-                                            <h3 class="card-title">325</h3>
+                                            <p className="card-category">Jumlah pengguna</p>
+                                            <h3 className="card-title">325</h3>
                                             </div>
-                                            <div class="card-footer">
-                                            <div class="stats">
-                                                <i class="material-icons">local_offer</i> Tracked from Github
+                                            <div className="card-footer">
+                                            <div className="stats">
+                                                <i className="material-icons">local_offer</i> Tracked from Github
                                             </div>
                                             </div>
                                         </div>
                                         </div>
-                                        <div class="col-lg-3 col-md-6 col-sm-6">
-                                        <div class="card card-stats">
-                                            <div class="card-header card-header-warning card-header-icon">
-                                            <div class="card-icon">
-                                                <i class="material-icons">alarm</i>
+                                        <div className="col-lg-3 col-md-6 col-sm-6">
+                                        <div className="card card-stats">
+                                            <div className="card-header card-header-warning card-header-icon">
+                                            <div className="card-icon">
+                                                <i className="material-icons">alarm</i>
                                             </div>
-                                            <p class="card-category">Transaksi berhasil</p>
-                                            <h3 class="card-title">17+</h3>
+                                            <p className="card-category">Transaksi berhasil</p>
+                                            <h3 className="card-title">17+</h3>
                                             </div>
-                                            <div class="card-footer">
-                                            <div class="stats">
-                                                <i class="material-icons">update</i> Just Updated
+                                            <div className="card-footer">
+                                            <div className="stats">
+                                                <i className="material-icons">update</i> Just Updated
                                             </div>
                                             </div>
                                         </div>
@@ -92,16 +92,16 @@ class Core extends Component {
                                     <div className="col-md-4 product-image"><img src={require("../../media/ico/menu/wheat.png")} alt="" /></div>
                                     <div className="col-md-8">
                                         {/* TEST */}
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="card card-chart">
-                                                    <div class="card-header card-header-success" id="card-info">
-                                                        <div class="ct-chart" id="dailySalesChart"><h4 class="card-title">Statistika Dagang Bulanan</h4></div>
+                                        <div className="row">
+                                            <div className="col-md-12">
+                                                <div className="card card-chart">
+                                                    <div className="card-header card-header-success" id="card-info">
+                                                        <div className="ct-chart" id="dailySalesChart"><h4 className="card-title">Statistika Dagang Bulanan</h4></div>
                                                     </div>
-                                                    <div class="card-body">
+                                                    <div className="card-body">
                                                         
-                                                        {/* <p class="card-category">
-                                                            <span class="text-success"><i class="fa fa-long-arrow-up"></i> 55% </span> increase in today sales.
+                                                        {/* <p className="card-category">
+                                                            <span className="text-success"><i className="fa fa-long-arrow-up"></i> 55% </span> increase in today sales.
                                                         </p> */}
                                                         <div className="header-conent container row">
                                                             <div className="col-md-2 th-content"><strong><i>Tipe Produk</i></strong></div>
@@ -153,9 +153,9 @@ class Core extends Component {
                                                             <div className="col-md-2">94.658 KG</div>
                                                         </div>
                                                     </div>
-                                                    <div class="card-footer">
-                                                        <div class="stats">
-                                                            <i class="material-icons">access_time</i> updated 4 minutes ago
+                                                    <div className="card-footer">
+                                                        <div className="stats">
+                                                            <i className="material-icons">access_time</i> updated 4 minutes ago
                                                         </div>
                                                     </div>
                                                 </div>   

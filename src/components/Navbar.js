@@ -20,11 +20,12 @@ class Navbar extends Component {
         // console.log(this.props.auth_state)
     };
     render() {
+        console.log("cek is_login", this.props.is_login)
         return (
             <div className="row navbar">
                 <div className="col-md-2">
                     <Link to="/" onClick={() => this.props.setHome()}>
-                        <img className="logo" src={require("../media/logo/logo2.png")} alt="" />
+                        <img className="logo-panenin" src={require("../media/logo/logo2.png")} alt="" />
                     </Link>
                 </div>
                 <div className="col-md-3">
@@ -35,11 +36,13 @@ class Navbar extends Component {
                 </div>
                 {/* <!-- <div className="col-md-3"><input type="text" className="col-12"></div> --> */}
                 <div className="col-md-3"><input className="form-control mr-sm-2 search" type="search" placeholder="Cari" aria-label="Search" /></div>
-                <div className="col-md-4" id="register-btn">
-                    {/* <button type="button" className="btn btn-outline-success login">LOGIN</button> */}
-                    {/* <button type="button" className="btn btn-outline-success">REGISTER</button> */}
+                <div className="col-md-4" id="register-btn" style={{ display: (this.props.is_login) ? "none" : "inline-block" }}>
                     <Link to="/auth" className="btn btn-outline-success login" onClick={() => this.changeStateFalse()}>MASUK</Link>
                     <Link to="/auth" className="btn btn-outline-success" onClick={() => this.changeStateTrue()}>DAFTAR</Link>
+                </div>
+                <div className="col-md-4" id="register-btn" style={{ display: (this.props.is_login) ? "inline-block" : "none" }}>
+                    <Link to="/auth" className="btn btn-outline-success login" onClick={() => this.changeStateFalse()}>KELUAR</Link>
+                    <Link to="/auth" className="btn btn-outline-success" onClick={() => this.changeStateTrue()}>PROFILE SAYA</Link>
                 </div>
                 {/* <!-- <div className="col-md-2" id="login-btn">LOGIN</div> --> */}
             </div>
@@ -50,5 +53,5 @@ class Navbar extends Component {
 // EXPORT THE COMPONENT BODY
 // export default Navbar;
 export default connect(
-    "auth_state", actions)
+    "auth_state, is_login", actions)
 (withRouter(Navbar));
