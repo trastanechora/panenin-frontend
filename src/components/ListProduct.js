@@ -13,8 +13,7 @@ import '../css/style.css';
 const ListProduct = props => {
     // console.log("debug props value", props)
     const path = "/detail/" + props.id
-    return (
-        
+    return (  
         <tr>
             <td>
                 {props.number}

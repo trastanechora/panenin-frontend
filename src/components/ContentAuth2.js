@@ -14,13 +14,13 @@ class ContentAuth2 extends Component {
     };
     doLogin = () => {
         this.props.postLogin().then(()=> {
-            this.props.history.replace("/");
+            this.props.history.replace("/profile");
             // return <Redirect to={{ pathname: "/signin" }} />;
         });
     };
     doRegister = () => {
         this.props.postRegister().then(()=> {
-            this.props.history.replace("/profile");
+            this.props.history.replace("/");
             // return <Redirect to={{ pathname: "/signin" }} />;
         });
     };
@@ -34,17 +34,14 @@ class ContentAuth2 extends Component {
                             <div class="form-group">
                                 <label for="exampleInputEmail1">E-mail</label>
                                 <input onChange={e => this.props.setField(e)} name="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="email@domain.com" />
-                                {/* <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> --> */}
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Masukkan ulang E-mail</label>
                                 <input onChange={e => this.props.setField(e)} name="email_confirmation" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="email@domain.com" />
-                                {/* <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> --> */}
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Username</label>
                                 <input onChange={e => this.props.setField(e)} name="username" type="text" class="form-control" id="exampleInputEmail1" placeholder="usernameanda" />
-                                {/* <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> --> */}
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputPassword1">Password</label>
@@ -66,7 +63,6 @@ class ContentAuth2 extends Component {
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Username</label>
                                 <input onChange={e => this.props.setField(e)} name="username" type="text" class="form-control" id="exampleInputEmail1" placeholder="usernameanda"  />
-                                {/* <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> --> */}
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputPassword1">Password</label>

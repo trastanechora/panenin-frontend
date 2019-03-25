@@ -10,10 +10,10 @@ import ListProduct from '../ListProduct'
 
 const base_url = "http://0.0.0.0:5555/api/public/products"
 const paging = "?p="
-const category = "&category=chicken"
+const category = "&category=sayur"
 
 // COMPONENT BODY
-class Chicken extends Component {
+class Vegetable extends Component {
     constructor (props) {
         super(props);
           this.state = {
@@ -122,7 +122,7 @@ class Chicken extends Component {
                     <div className="row">
                         <div className="col-lg-6 col-md-6 col-sm-12">
                             <div className="card card-stats">
-                                <div className="card-header card-header-danger card-header-icon">
+                                <div className="card-header card-header-success card-header-icon">
                                     <div className="card-icon">
                                         <i className="material-icons">content_copy</i>
                                     </div>
@@ -142,7 +142,7 @@ class Chicken extends Component {
                         </div>
                         <div className="col-lg-6 col-md-6 col-sm-12">
                             <div className="card card-stats">
-                                <div className="card-header card-header-danger card-header-icon">
+                                <div className="card-header card-header-success card-header-icon">
                                     <div className="card-icon">
                                         <i className="material-icons">alarm</i>
                                     </div>
@@ -159,14 +159,14 @@ class Chicken extends Component {
                     </div>
                     {/* =========== END of Info Cards =========== */}
                     <div className="row content-info">
-                        <div className="col-md-4 product-image"><img src={require("../../media/ico/menu/chicken.png")} alt="" /></div>
+                        <div className="col-md-4 product-image"><img src={require("../../media/ico/menu/vegetable.png")} alt="" /></div>
                         <div className="col-md-8">
                             {/* TEST */}
                             <div className="row">
                                 <div className="col-md-12">
                                 {/* =========== START of Statistic Card =========== */}
                                     <div className="card card-chart">
-                                        <div className="card-header card-header-danger" id="card-info">
+                                        <div className="card-header card-header-success" id="card-info">
                                             <div className="ct-chart" id="dailySalesChart"><h4 className="card-title">Statistika Dagang Bulanan</h4></div>
                                         </div>
                                         <div className="card-body">
@@ -210,8 +210,8 @@ class Chicken extends Component {
                     </div>
                     <div className="row content-table">
                         <div className="card card-plain">
-                            <div className="card-header card-header-danger">
-                                <h4 className="card-title mt-0"> Daftar Produk Panen Ayam yang Tersedia</h4>
+                            <div className="card-header card-header-success">
+                                <h4 className="card-title mt-0"> Daftar Produk Panen Buah yang Tersedia</h4>
                                 <p className="card-category"> Klik tombol "Lihat" pada list di bawah untuk info lebih detail</p>
                             </div>
                             <div className="card-body">
@@ -271,4 +271,4 @@ class Chicken extends Component {
 // export default Fruit;
 export default connect(
     "auth_state", actions)
-(withRouter(Chicken));
+(withRouter(Vegetable));

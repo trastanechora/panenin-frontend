@@ -97,7 +97,7 @@ class Fish extends Component {
         let pages = []
 
         for (let i = 1; i < this.state.totalPage + 1; i++) {
-            if (i == this.state.page) {
+            if (i === this.state.page) {
                 pages.push(
                     <li className="page-item active">
                         <a className="page-link">{i}</a>
@@ -171,31 +171,27 @@ class Fish extends Component {
                                         </div>
                                         <div className="card-body">
                                             <table className="table">
-                                                <thead className="text-info">
-                                                    <th> 
-                                                        Tipe Produk
-                                                    </th>
-                                                    <th>
-                                                        Rata-rata Harga / KG
-                                                    </th>
-                                                    <th>
-                                                    </th>
-                                                    <th>
-                                                        Kuantitas Terjual (KG)
-                                                    </th>
-                                                    <th>
-                                                    </th>
+                                                <thead className="text-danger">
+                                                    <tr>
+                                                        <th>Tipe Produk</th>
+                                                        <th>Rata-rata Harga / KG</th>
+                                                        <th></th>
+                                                        <th>Kuantitas Terjual (KG)</th>
+                                                        <th></th>
+                                                    </tr>
                                                 </thead>
                                                 <tbody className="">
-                                                    <th>
-                                                    </th>
-                                                    <th>Bulan lalu</th>
-                                                    <th>Bulan ini</th>
-                                                    <th>Bulan lalu</th>                                     
-                                                    <th>Bulan ini</th>                          
+                                                    <tr>
+                                                        <th></th>
+                                                        <th>Bulan lalu</th>
+                                                        <th>Bulan ini</th>
+                                                        <th>Bulan lalu</th>                                     
+                                                        <th>Bulan ini</th>
+                                                    </tr>                       
                                                 <tr>
                                                     {/* =========== Data for statistics put here =========== */}
                                                 </tr>
+                                                
                                                 </tbody>
                                             </table>
                                         </div>
@@ -221,15 +217,17 @@ class Fish extends Component {
                             <div className="card-body">
                                 <div className="table-responsive">
                                     <table className="table table-hover">
-                                    <thead className="text-info">
-                                        <th>No</th>
-                                        <th>Nama</th>
-                                        <th>Kategori</th>
-                                        <th>Tipe</th>
-                                        <th>Lokasi</th>
-                                        <th>Kuantitas</th>
-                                        <th>Harga</th>
-                                        <th>Link</th>
+                                    <thead className="text-danger">
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Nama</th>
+                                            <th>Kategori</th>
+                                            <th>Tipe</th>
+                                            <th>Lokasi</th>
+                                            <th>Kuantitas</th>
+                                            <th>Harga</th>
+                                            <th>Link</th>
+                                        </tr>
                                     </thead>
                                     <tbody>
                                         {this.state.ListProduct.map((item, key) => {

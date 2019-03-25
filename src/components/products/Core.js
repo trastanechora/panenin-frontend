@@ -97,7 +97,7 @@ class Core extends Component {
         let pages = []
 
         for (let i = 1; i < this.state.totalPage + 1; i++) {
-            if (i == this.state.page) {
+            if (i === this.state.page) {
                 pages.push(
                     <li className="page-item active">
                         <a className="page-link">{i}</a>
@@ -170,57 +170,28 @@ class Core extends Component {
                                             <div className="ct-chart" id="dailySalesChart"><h4 className="card-title">Statistika Dagang Bulanan</h4></div>
                                         </div>
                                         <div className="card-body">
-                                            <table className="table">
-                                                <thead className="text-warning">
-                                                    <th> 
-                                                        Tipe Produk
-                                                    </th>
-                                                    <th>
-                                                        Rata-rata Harga / KG
-                                                    </th>
-                                                    <th>
-                                                    </th>
-                                                    <th>
-                                                        Kuantitas Terjual (KG)
-                                                    </th>
-                                                    <th>
-                                                    </th>
+                                        <table className="table">
+                                                <thead className="text-danger">
+                                                    <tr>
+                                                        <th>Tipe Produk</th>
+                                                        <th>Rata-rata Harga / KG</th>
+                                                        <th></th>
+                                                        <th>Kuantitas Terjual (KG)</th>
+                                                        <th></th>
+                                                    </tr>
                                                 </thead>
                                                 <tbody className="">
-                                                    <th>
-                                                    </th>
-                                                    <th>Bulan lalu</th>
-                                                    <th>Bulan ini</th>
-                                                    <th>Bulan lalu</th>                                     
-                                                    <th>Bulan ini</th>                          
+                                                    <tr>
+                                                        <th></th>
+                                                        <th>Bulan lalu</th>
+                                                        <th>Bulan ini</th>
+                                                        <th>Bulan lalu</th>                                     
+                                                        <th>Bulan ini</th>
+                                                    </tr>                       
                                                 <tr>
-                                                    <td>Padi</td>     
-                                                    <td>Rp. 4.874,-</td>
-                                                    <td>Rp. 5.255,-</td>                  
-                                                    <td>464.323 KG</td>
-                                                    <td>123.658 KG</td>
+                                                    {/* =========== Data for statistics put here =========== */}
                                                 </tr>
-                                                <tr>
-                                                    <td>Jagung</td>     
-                                                    <td>Rp. 6.523,-</td>
-                                                    <td>Rp. 5.241,-</td>                  
-                                                    <td>164.323 KG</td>
-                                                    <td>22.658 KG</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Kentang</td>     
-                                                    <td>Rp. 14.587,-</td>
-                                                    <td>Rp. 15.345,-</td>                  
-                                                    <td>264.234 KG</td>
-                                                    <td>14.658 KG</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Tebu</td>     
-                                                    <td>Rp. 7.490,-</td>
-                                                    <td>Rp. 8.223,--</td>                  
-                                                    <td>314.323 KG</td>
-                                                    <td>94.658 KG</td>
-                                                </tr>
+                                                
                                                 </tbody>
                                             </table>
                                         </div>
@@ -246,15 +217,17 @@ class Core extends Component {
                             <div className="card-body">
                                 <div className="table-responsive">
                                     <table className="table table-hover">
-                                    <thead className="text-warning">
-                                        <th>No</th>
-                                        <th>Nama</th>
-                                        <th>Kategori</th>
-                                        <th>Tipe</th>
-                                        <th>Lokasi</th>
-                                        <th>Kuantitas</th>
-                                        <th>Harga</th>
-                                        <th>Link</th>
+                                    <thead className="text-danger">
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Nama</th>
+                                            <th>Kategori</th>
+                                            <th>Tipe</th>
+                                            <th>Lokasi</th>
+                                            <th>Kuantitas</th>
+                                            <th>Harga</th>
+                                            <th>Link</th>
+                                        </tr>
                                     </thead>
                                     <tbody>
                                         {this.state.ListProduct.map((item, key) => {

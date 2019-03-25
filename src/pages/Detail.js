@@ -2,7 +2,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { connect } from "unistore/react";
-import { actions } from '../Store';
+// import { actions } from '../Store';
+import { actions, store } from '../Store';
 import { withRouter } from "react-router-dom";
 import '../css/bootstrap.min.css';
 import '../css/style.css';
@@ -30,7 +31,11 @@ class Detail extends Component {
             price: 0,
             product_type: "",
             status: "",
-            offers: []
+            offers: [],
+            // offer_amount: 0,
+            // offer_price: 0,
+            // offer_description: "",
+            // offer_destination: ""
           };
       };
 
@@ -82,7 +87,47 @@ class Detail extends Component {
         console.log("Cek local state on Detail page", self.state)
     }
 
+    doOffer = async () =>{
+        const self = this
+        const token = localStorage.getItem("token")
+        const product_id = this.props.location.pathname.slice(8)
+        const url_offer = "http://0.0.0.0:5555/api/offers?product_id=" + product_id
+        console.log("Cek value offer before send request", product_id, this.props.offer_amount, this.props.offer_price, this.props.offer_description, this.props.offer_destination)
+        await axios({
+            method: 'post',
+            url: 'http://localhost:8010/proxy/api/offers',
+            data: {
+                product_id: product_id,
+                amount: this.props.offer_amount,
+                price: this.props.offer_price,
+                description: this.props.offer_description,
+                destination: this.props.offer_destination
+            },
+            headers: {
+              Authorization: 'Bearer ' + token
+            }
+        }).then(function(response) {
+            axios
+            .get(url_offer)
+            .then(function(response) {
+                self.setState({
+                    offers: response.data[0]
+                })
+                console.log("Success get response from offer", response.data[0])
+            })
+            .catch(function(error) {
+                console.log("Failed axios at detail", error);
+            });
+            console.log("Sukses post offer", response)
+            }).catch(function(error) {
+            console.log("Gagal post offer", error);
+            });
+        // console.log("cek local storage detail", self.state)
+    };
+
     render() {
+        console.log("current_userid", this.props.current_userid)
+        console.log("postedby", this.state.posted_by)
         return (
         <div>
             <div class="container-fluid for-banner">
@@ -253,6 +298,47 @@ class Detail extends Component {
                                             const status = item.status !== null ? item.status : "";
                                             return <ListOffer key={key} date={created_at} buyer={buyer_id} destination={destination} price={price} description={description} status={status} />
                                         })}
+
+                                        {/* OFFER FORM */}
+                                        <div className="container row justify-content-center" style={{ display: (this.props.current_userid === this.state.posted_by) ? "none" : "block" }}>
+                                            <form onSubmit={e => e.preventDefault()}>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="bmd-label-floating">Kuantitas:</label>
+                                                    <input onChange={e => this.props.setField(e)} name="offer_amount" type="text" class="form-control" />
+                                                </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="bmd-label-floating">Harga tawar:</label>
+                                                    <input onChange={e => this.props.setField(e)} name="offer_price" type="text" class="form-control" />
+                                                </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label class="bmd-label-floating">Kota tujuan:</label>
+                                                    <input onChange={e => this.props.setField(e)} name="offer_destination" type="text" class="form-control" />
+                                                </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <div class="form-group">
+                                                    <label class="bmd-label-floating"> Komentar anda:</label>
+                                                    <textarea onChange={e => this.props.setField(e)} name="offer_description" class="form-control" rows="5"></textarea>
+                                                    </div>
+                                                </div>
+                                                </div>
+                                            </div>
+                                            <button type="submit" class="btn btn-danger" onClick={() => this.doOffer()}>Tawar!</button>
+                                            <div class="clearfix"></div>
+                                        </form>
+                                    </div>
+                                    {/* OFFER FORM */}
                                 </div>
                             </div>
                             
@@ -269,5 +355,5 @@ class Detail extends Component {
 
 // export default Home;
 export default connect(
-  "", actions)
+  "offer_price, offer_amount, offer_destination, offer_description, current_userid", actions)
 (withRouter(Detail));

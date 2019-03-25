@@ -10,10 +10,10 @@ import ListProduct from '../ListProduct'
 
 const base_url = "http://0.0.0.0:5555/api/public/products"
 const paging = "?p="
-const category = "&category=chicken"
+const category = "&category=kambing"
 
 // COMPONENT BODY
-class Chicken extends Component {
+class Sheep extends Component {
     constructor (props) {
         super(props);
           this.state = {
@@ -159,7 +159,7 @@ class Chicken extends Component {
                     </div>
                     {/* =========== END of Info Cards =========== */}
                     <div className="row content-info">
-                        <div className="col-md-4 product-image"><img src={require("../../media/ico/menu/chicken.png")} alt="" /></div>
+                        <div className="col-md-4 product-image"><img src={require("../../media/ico/menu/sheep.png")} alt="" /></div>
                         <div className="col-md-8">
                             {/* TEST */}
                             <div className="row">
@@ -271,4 +271,4 @@ class Chicken extends Component {
 // export default Fruit;
 export default connect(
     "auth_state", actions)
-(withRouter(Chicken));
+(withRouter(Sheep));

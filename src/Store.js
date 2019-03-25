@@ -10,7 +10,7 @@ const base_url = "http://0.0.0.0:5555/api/public/products"
 
 // LOCAL ENVIRONMENT
 const url_login = "http://localhost:8010/proxy/api/public/login"
-const url_register = "http://0.0.0.0:5555/proxy/api/public/register"
+const url_register = "http://localhost:8010/proxy/api/public/register"
 
 // DEPLOY ENVIRONMENT
 // const url_login = "https://cors-anywhere.herokuapp.com/https://panenin.com/api/public/login"
@@ -19,6 +19,19 @@ const url_register = "http://0.0.0.0:5555/proxy/api/public/register"
 
 // SET THE GLOBAL STATE VARIABLES
 const initialState = {
+    current_id: 0,
+    current_email: "",
+    current_username: "",
+    current_password: "",
+    current_date_of_birth: "",
+    current_address: "",
+    current_created_at: "",
+    current_display_fullname: "",
+    current_gender: "",
+    current_phone: "",
+    current_status: "",
+    current_updated_at: "",
+
     token: "",
     test: "",
     auth_state: true,
@@ -32,7 +45,14 @@ const initialState = {
     password_confirmation: "",
 
     page: 1,
-    url: base_url
+    url: base_url,
+    current_username: "",
+    current_userid: "",
+
+    offer_amount: 0,
+    offer_price: 0,
+    offer_description: "",
+    offer_destination: ""
 };
 
 export const store = createStore(initialState)
@@ -66,6 +86,7 @@ export const actions = store => ({
                     is_login: true,
                     token: response.data.token,
                 });
+                localStorage.removeItem('token')
                 localStorage.setItem('token', response.data.token)
             } else {
                 console.log("Login Gagal");
@@ -97,11 +118,12 @@ export const actions = store => ({
             if (response.status === 200) {
                 // console.log("cek token!", response.data.token)
                 store.setState({
-                    is_login: true
+                    is_login: false
                 });
                 localStorage.setItem('token', response.data.token)
             } else {
                 console.log("Login Gagal");
+                alert("Maaf coba silahkan coba lagi");
             }
         })
         .catch(function(error) {
@@ -112,6 +134,7 @@ export const actions = store => ({
         console.log("----------------------TEST POST REGISTER --------------------------------")
     },
     postLogout: state => {
+        localStorage.removeItem('token')
         return { is_login: false };
     },
 })

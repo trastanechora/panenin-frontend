@@ -10,7 +10,12 @@ import Landing from './Landing';
 import Fruit from './products/Fruit';
 import Core from './products/Core';
 import Fish1 from './products/Fish1';
+import Fish2 from './products/Fish2';
 import Chicken from './products/Chicken';
+import Vegetable from './products/Vegetable';
+import Egg from './products/Egg';
+import Cow from './products/Cow';
+import Sheep from './products/Sheep';
 
 // COMPONENT BODY
 class Content extends Component {
@@ -53,11 +58,26 @@ class Content extends Component {
                 <div className={(this.props.product_state == "fruits") ? "container content-body shadow show" : "container content-body shadow"}>
                     <Fruit />
                 </div>
+                <div className={(this.props.product_state == "vegetables") ? "container content-body shadow show" : "container content-body shadow"}>
+                    <Vegetable />
+                </div>
                 <div className={(this.props.product_state == "fish1") ? "container content-body shadow show" : "container content-body shadow"}>
                     <Fish1 />
                 </div>
+                <div className={(this.props.product_state == "fish2") ? "container content-body shadow show" : "container content-body shadow"}>
+                    <Fish2 />
+                </div>
                 <div className={(this.props.product_state == "chickens") ? "container content-body shadow show" : "container content-body shadow"}>
                     <Chicken />
+                </div>
+                <div className={(this.props.product_state == "eggs") ? "container content-body shadow show" : "container content-body shadow"}>
+                    <Egg />
+                </div>
+                <div className={(this.props.product_state == "cows") ? "container content-body shadow show" : "container content-body shadow"}>
+                    <Cow />
+                </div>
+                <div className={(this.props.product_state == "sheeps") ? "container content-body shadow show" : "container content-body shadow"}>
+                    <Sheep />
                 </div>
             </div>
     )
