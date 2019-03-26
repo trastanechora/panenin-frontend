@@ -3,13 +3,6 @@ import { Link } from "react-router-dom";
 import '../css/bootstrap.min.css';
 import '../css/style.css';
 
-// const redirect = () => {
-//     // this.props.history.replace("/");
-//     console.log("testing redirect")
-//     return <Redirect to={{ pathname: "/detail" }} />;
-//     // console.log(this)
-// };
-
 const ListProduct = props => {
     // console.log("debug props value", props)
     const path = "/detail/" + props.id

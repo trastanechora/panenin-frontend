@@ -413,6 +413,7 @@ label {
 input#response-offer {
   background-color: #f4ff94;
   border-radius: 5px;
+  color: black;
 }
 
 .transaction-body {

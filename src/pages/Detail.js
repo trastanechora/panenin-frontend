@@ -36,6 +36,18 @@ class Detail extends Component {
             // offer_price: 0,
             // offer_description: "",
             // offer_destination: ""
+            current_id: 1,
+            current_email: "",
+            current_username: "",
+            current_password: "",
+            current_date_of_birth: "",
+            current_address: "",
+            current_created_at: "",
+            current_display_fullname: "",
+            current_gender: "",
+            current_phone: "",
+            current_status: "",
+            current_updated_at: "",
           };
       };
 
@@ -50,7 +62,7 @@ class Detail extends Component {
         await axios
         .get(url_product)
         .then(function(response) {
-            // console.log("Sukses get product detail", response.data.data[0])
+            console.log("Sukses get product detail", response.data)
             // this.setState({ListProduct: response.data.data});
             self.setState({
                 amount: response.data.data[0].amount,
@@ -61,7 +73,7 @@ class Detail extends Component {
                 location: response.data.data[0].location,
                 name: response.data.data[0].name,
                 posted_at: response.data.data[0].posted_at,
-                posted_by: response.data.data[0].posted_bt,
+                posted_by: response.data.data[0].posted_by,
                 price: response.data.data[0].price,
                 product_type: response.data.data[0].product_type,
                 status: response.data.data[0].status
@@ -84,7 +96,45 @@ class Detail extends Component {
         .catch(function(error) {
             console.log("Failed axios at detail", error);
         });
-        console.log("Cek local state on Detail page", self.state)
+        // console.log("Cek local state on Detail page", self.state)
+
+        const token = localStorage.getItem('token');
+    // console.log("token dong", token)
+    if (token !== null) {
+      await axios({
+        method: 'get', //you can set what request you want to be
+        url: 'http://localhost:8010/proxy/api/public/login',
+        headers: {
+          Authorization: 'Bearer ' + token
+        }
+        }).then(function(response) {
+            self.setState({ 
+              current_id: response.data.data.id,
+              current_email: response.data.data.email,
+              current_username: response.data.data.username,
+              current_password: response.data.data.password,
+              current_date_of_birth: response.data.data.date_of_birth,
+              current_address: response.data.data.address,
+              current_created_at: response.data.data.created_at,
+              current_display_fullname: response.data.data.display_fullname,
+              current_gender: response.data.data.gender,
+              current_phone: response.data.data.phone,
+              current_status: response.data.data.status,
+              current_updated_at: response.data.data.updated_at,
+              is_login: true
+            });
+            // console.log("Sukses get identity", response)
+            // self.props.history.replace("/profile");
+          }).catch(function(error) {
+            // console.log("Gagal get identity, token akan dihapus", error);
+            localStorage.removeItem('token')
+          });
+
+        console.log("---------------------------------------------------")
+        console.log("Cek current user please:", self.props.current_id)
+        console.log("Cek the product poster", self.state.posted_by)
+        console.log("---------------------------------------------------")
+        }
     }
 
     doOffer = async () =>{
@@ -126,8 +176,8 @@ class Detail extends Component {
     };
 
     render() {
-        console.log("current_userid", this.props.current_userid)
-        console.log("postedby", this.state.posted_by)
+        // console.log("current_userid", this.props.current_userid)
+        // console.log("postedby", this.state.posted_by)
         return (
         <div>
             <div class="container-fluid for-banner">
@@ -219,11 +269,6 @@ class Detail extends Component {
                                                         </tr>
                                                     </tbody>
                                                 </table>
-
-
-
-
-
                                             </div>
                                             <div className="card-footer">
                                                 <div className="stats">
@@ -290,17 +335,19 @@ class Detail extends Component {
                                     {this.state.offers.map((item, key) => {
                                             // console.log("testing item value", item)
                                             const amount = item.amount !== null ? item.amount : "";
+                                            const id = item.id !== null ? item.id : "";
                                             const buyer_id = item.buyer_id !== null ? item.buyer_id : "";
-                                            const created_at = item.product_created_at !== null ? item.product_created_at : "";
+                                            const buyer_username = item.buyer_username !== null ? item.buyer_username : "";
+                                            const created_at = item.created_at !== null ? item.created_at : "";
                                             const description = item.description !== null ? item.description : "";
                                             const destination = item.destination !== null ? item.destination : "";
                                             const price = item.price !== null ? item.price : "";
                                             const status = item.status !== null ? item.status : "";
-                                            return <ListOffer key={key} date={created_at} buyer={buyer_id} destination={destination} price={price} description={description} status={status} />
+                                            const flag = item.flag !== null ? item.flag : "";
+                                            return <ListOffer key={key} id={id} date={created_at.slice(0, 19)} buyer={buyer_username} destination={destination} price={price} description={description} status={status} flag={flag} current_id={this.state.current_id}/>
                                         })}
-
                                         {/* OFFER FORM */}
-                                        <div className="container row justify-content-center" style={{ display: (this.props.current_userid === this.state.posted_by) ? "none" : "block" }}>
+                                        <div className="container row justify-content-center" style={{ display: (this.state.current_id === this.state.posted_by) ? "none" : "block" }}>
                                             <form onSubmit={e => e.preventDefault()}>
                                             <div class="row">
                                                 <div class="col-md-6">
@@ -355,5 +402,5 @@ class Detail extends Component {
 
 // export default Home;
 export default connect(
-  "offer_price, offer_amount, offer_destination, offer_description, current_userid", actions)
+  "offer_price, offer_amount, offer_destination, offer_description, current_id", actions)
 (withRouter(Detail));

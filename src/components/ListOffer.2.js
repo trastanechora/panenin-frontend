@@ -92,16 +92,13 @@ class ListOffer extends Component {
                     </div>
                     <div class="row">
                         <div class="col-md-9">
-                            <div style={{ display: (this.props.id == this.props.current_id) ? "none" : "block" }}>
                                 <div class="col-md-12">Selamat, tawaran anda mendapat tanggapan positif dari penjual!</div>
                                 <div class="col-md-12 row">
                                     <div class="col-md-12">Silahkan lengkapi pembayaran di sini:</div>
                                     <div class="col-md-12">
-                                        {/* <input type="submit" name="" id="response-offer" value="ke Transaksi" /> */}
-                                        <Link to="/transaction" className="btn btn-outline-success login" onClick={() => this.props.postLogout()}>Ke Transaksi</Link>
+                                        <input type="submit" name="" id="response-offer" value="ke Transaksi" />
                                     </div>
                                 </div>
-                            </div>
                         </div>
                         <div class="col-md-2">
                             <div class="status status-accepted">Diterima</div>
@@ -133,8 +130,8 @@ class ListOffer extends Component {
                             <div class="col-md-12">
                                 <div class="col-md-8 row">
                                     {/* <input type="submit" name="" id="response-offer" className="btn btn-success" value="Kirim" /> */}
-                                    <span className="col-md-3"><button onClick={() => this.respondOffer(this.props.id, "rejected")} className="btn btn-danger">Tolak</button></span>
-                                    <span className="col-md-3"><button onClick={() => this.respondOffer(this.props.id, "accepted")} className="btn btn-success">Terima</button></span>
+                                    <span className="col-md-3"><button onClick={() => this.respondOffer(this.props.id, "accepted")} className="btn btn-danger">Tolak</button></span>
+                                    <span className="col-md-3"><button onClick={() => this.respondOffer(this.props.id, "rejected")} className="btn btn-success">Terima</button></span>
                                 </div>
                             </div>
                         </div>

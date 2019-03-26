@@ -12,9 +12,10 @@ import Navbar from '../components/Navbar';
 import PersonalInfo from '../components/PersonalInfo';
 import PersonalInfoEdit from '../components/PersonalInfoEdit';
 import AddProduct from '../components/AddProduct';
-import ListProduct from '../components/ListProduct';
+import ListProductOwner from '../components/ListProductOwner';
 
-
+const base_url = "http://localhost:8010/proxy/api/public/products"
+const attribute = "?id="
 
 //MAIN CLASS
 class Profile extends Component {
@@ -41,20 +42,7 @@ class Profile extends Component {
   componentDidMount = async () => {
     const token = localStorage.getItem("token")
     const self = this
-    console.log("TOKEEEEEEN", token)
-    // await axios({
-    //   method: 'post', //you can set what request you want to be
-    //   url: 'http://localhost:8010/proxy/api/public/login',
-    //   data: {id: varID},
-    //   headers: {
-    //     Authorization: 'Bearer ' + token
-    //   }
-    // }).then(function(response) {
-    //   console.log("Sukses get identity", response)
-    // }).catch(function(error) {
-    //   console.log("Gagal get identity", error);
-    // });
-
+    // console.log("TOKEEEEEEN", token)
     await axios({
       method: 'get', //you can set what request you want to be
       url: 'http://localhost:8010/proxy/api/public/login',
@@ -80,45 +68,66 @@ class Profile extends Component {
             current_username: response.data.data.username,
             current_userid: response.data.data.id
           });
-          console.log("Sukses get identity", response)
+          // console.log("Sukses get identity", response)
         }).catch(function(error) {
           console.log("Gagal get identity", error);
         });
       // console.log("cek local storage detail", self.state)
 
-      // await axios({
-      //   method: 'get', //you can set what request you want to be
-      //   url: 'http://localhost:8010/proxy/api/public/login',
-      //   headers: {
-      //     Authorization: 'Bearer ' + token
-      //   }
-      // }).then(function(response) {
-      //       self.setState({ 
-      //         id: response.data.data.id,
-      //         email: response.data.data.email,
-      //         username: response.data.data.username,
-      //         password: response.data.data.password,
-      //         date_of_birth: response.data.data.date_of_birth,
-      //         address: response.data.data.address,
-      //         created_at: response.data.data.created_at,
-      //         display_fullname: response.data.data.display_fullname,
-      //         gender: response.data.data.gender,
-      //         phone: response.data.data.phone,
-      //         status: response.data.data.status,
-      //         updated_at: response.data.data.updated_at
-      //       });
-      //       store.setState({
-      //         current_username: response.data.data.username,
-      //         current_userid: response.data.data.id
-      //       });
-      //       console.log("Sukses get identity", response)
-      //     }).catch(function(error) {
-      //       console.log("Gagal get identity", error);
-      //     });
-      //   // console.log("cek local storage detail", self.state)
+      // this.updateList();
+      axios({
+        method: 'get',
+        url: base_url + attribute + this.state.id,
+        headers: {
+          Authorization: 'Bearer ' + token
+        }
+      }).then(function(response) {
+            // console.log("Sukses get user product", response)
+            // console.log("Sukses cek isi response", response.data)
+            self.setState({ListProduct: response.data.data});
+          }).catch(function(error) {
+            console.log("Gagal get identity", error);
+          });
+      
   }
 
-  
+  updateList = () => {
+    const token = localStorage.getItem("token");
+    const self = this;
+    axios({
+      method: 'get',
+      url: base_url + attribute + this.state.id,
+      headers: {
+        Authorization: 'Bearer ' + token
+      }
+    }).then(function(response) {
+          // console.log("Sukses get user product", response)
+          // console.log("Sukses cek isi response", response.data)
+          self.setState({ListProduct: response.data.data});
+        }).catch(function(error) {
+          console.log("Gagal get identity", error);
+        });
+  }
+
+  doDelete = (id) => {
+    console.log("test delete finish")
+    const url = "http://localhost:8010/proxy/api/users/products/" + id
+    const token = localStorage.getItem('token');
+    console.log("url", url)
+    axios({
+        method: 'put',
+        url: url,
+        headers: {
+          Authorization: 'Bearer ' + token
+        }
+      }).then(function(response) {
+            console.log("Produk telah berhasil dihapus", response)
+          }).catch(function(error) {
+                console.log("Produk gagal dihapus", error)
+          });
+    console.log("test delete finish")
+    // props.doList()
+}
 
   state_change = () => {
     const self = this;
@@ -126,7 +135,7 @@ class Profile extends Component {
   };
 
   render() {
-    console.log("Cek state profile", this.state.profile_edit)
+    // console.log("Cek state profile", this.state.profile_edit)
     if (localStorage.getItem('token') == null) {
       return <Redirect to={{ pathname: "/auth" }} />;
     } else {
@@ -208,15 +217,15 @@ class Profile extends Component {
         <div className="section section-tabs">
       <div className="container">
         <div id="nav-tabs">
-          <h3>Navigation Tabs</h3>
+          <h3>Hello! </h3>
           <div className="row">
-            <div className="col-md-6" style={{ display: this.state.profile_edit ? "none" : "block" }}>
+            <div className="col-md-4" style={{ display: this.state.profile_edit ? "none" : "block" }}>
               <PersonalInfo state_change={this.state_change} email={this.state.email} display_name={this.state.display_fullname} address={this.state.address}/>
             </div>
-            <div className="col-md-6" style={{ display: this.state.profile_edit ? "block" : "none" }}>
+            <div className="col-md-4" style={{ display: this.state.profile_edit ? "block" : "none" }}>
               <PersonalInfoEdit state_change={this.state_change}/>
             </div>
-            <div className="col-md-6">
+            <div className="col-md-8">
               <div className="card card-plain">
                 <div className="card-header card-header-danger">
                   <h4 className="card-title mt-0"> Daftar Produk Anda yang Terdaftar</h4>
@@ -227,6 +236,7 @@ class Profile extends Component {
                   <table className="table table-hover">
                           <thead className="text-success">
                             <tr>
+                              <th>Opsi</th>
                               <th>No</th>
                               <th>Nama</th>
                               <th>Kategori</th>
@@ -238,7 +248,7 @@ class Profile extends Component {
                             </tr>
                           </thead>
                           <tbody>
-                              {/* {this.state.ListProduct.map((item, key) => {
+                              {this.state.ListProduct.map((item, key) => {
                                   // console.log("testing item value", item)
                                   const name = item.name !== null ? item.name : "";
                                   const category = item.category !== null ? item.category : "";
@@ -247,8 +257,8 @@ class Profile extends Component {
                                   const quantity = item.amount !== null ? item.amount : "";
                                   const price = item.price !== null ? item.price : "";
                                   const id = item.id !== null ? item.id : "";
-                                  return <ListProduct key={key} name={name} category={category} type={type} location={location} quantity={quantity} price={price} number={key + 1} id={id} />
-                              })} */}
+                                  return <ListProductOwner key={key} name={name} category={category} type={type} location={location} quantity={quantity} price={price} number={key + 1} id={id}/>
+                              })}
                           </tbody>
                       </table>
                   </div>

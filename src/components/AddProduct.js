@@ -1,12 +1,22 @@
 // LIST IMPORT MODULE
 import React, { Component } from 'react';
 import { connect } from "unistore/react";
-import { actions } from '../Store';
+import { actions, store } from '../Store';
 import { withRouter } from "react-router-dom";
 
 // COMPONENT BODY
 // class PersonalInfoEdit extends Component {
-const AddProduct = props => {
+// const AddProduct = props => {
+class AddProduct extends Component {
+    doAdd = () => {
+        this.props.postAdd().then(()=> {
+            // console.log("Produk sudah berhasil ditambahkan")
+            this.props.history.replace("/profile");
+            this.props.updateList();
+            // return <Redirect to={{ pathname: "/signin" }} />;
+        });
+    };
+    render() {
         return (
             <div className="card">
                 <div className="card-header card-header-danger">
@@ -26,7 +36,7 @@ const AddProduct = props => {
                                 <div className="form-group">
                                     <label className="bmd-label-floating">Kategori produk:</label>
                                     <select onChange={e => this.props.setField(e)} name="add_category" id="" className="form-control">
-                                        <option value="KATEGORI" disabled selected="selected">KATEGORI</option>
+                                        <option value="" disabled selected="selected">-- KATEGORI --</option>
                                         <option value="Pokok">Pokok</option>
                                         <option value="Buah">Buah</option>
                                         <option value="Sayuran">Sayuran</option>
@@ -46,7 +56,7 @@ const AddProduct = props => {
                                     <label className="bmd-label-floating">Tipe Produk:</label>
                                     {/* <input onChange={e => this.props.setField(e)} name="add_product_type" type="text" className="form-control" /> */}
                                     <select onChange={e => this.props.setField(e)} name="add_type" id="" className="form-control">
-                                        <option value="KATEGORI" disabled selected="selected">TIPE PRODUK</option>
+                                        <option value="" disabled selected="selected">-- TIPE PRODUK --</option>
                                         <option value="Pokok" disabled>--- Pokok ---</option>
                                         <option value="Padi">Padi</option>
                                         <option value="Jagung">Jagung</option>
@@ -147,18 +157,18 @@ const AddProduct = props => {
                                 <div className="form-group row">
                                     <div className="col-md-9">
                                     <label className="bmd-label-floating">Kuantitas:</label>
-                                        <input onChange={e => this.props.setField(e)} name="add_ammount" type="text" className="form-control" />
+                                        <input onChange={e => this.props.setField(e)} name="add_amount" type="text" className="form-control" />
                                     </div>
                                     <div className="col-md-3">
                                         <label className="bmd-label-floating">Satuan:</label>
                                         <select onChange={e => this.props.setField(e)} name="add_constanta" id="" className="form-control">
-                                        <option value="KATEGORI" disabled selected="selected">SATUAN</option>
-                                        <option value="Pokok">KG</option>
-                                        <option value="Buah">Ekor</option>
-                                        <option value="Sayuran">Biji</option>
-                                        <option value="Ikan1">Liter</option>
-                                        <option value="Ikan2">Butir</option>
-                                    </select>
+                                            <option value="" disabled selected="selected">-- SATUAN --</option>
+                                            <option value="KG">KG</option>
+                                            <option value="Ekor">Ekor</option>
+                                            <option value="Biji">Biji</option>
+                                            <option value="Liter">Liter</option>
+                                            <option value="Butir">Butir</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
@@ -172,6 +182,16 @@ const AddProduct = props => {
                                 <div className="form-group">
                                     <label className="bmd-label-floating">Lokasi produk:</label>
                                     <input onChange={e => this.props.setField(e)} name="add_location" type="text" className="form-control" />
+                                </div>
+                            </div>
+                            <div className="col-md-6">
+                                <div className="form-group">
+                                    <label className="bmd-label-floating">Sediakan jasa antar barang?</label>
+                                    <select onChange={e => this.props.setField(e)} name="add_delivery" id="" className="form-control">
+                                        <option value="" disabled selected="selected">-- ANTAR --</option>
+                                        <option value="true">YA</option>
+                                        <option value="false">TIDAK</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -203,18 +223,17 @@ const AddProduct = props => {
                             </div>
                         </div>
                     </div>
-                    <button type="submit" className="btn btn-danger" onClick={() => this.doAdd()}>Lelang!</button>
+                    <button className="btn btn-danger" onClick={() => this.doAdd()}>Lelang!</button>
                     <div className="clearfix"></div>
                 </form>
             </div>
         </div>
         )
-    
+    }
 }
 
 // EXPORT THE COMPONENT BODY
-export default AddProduct; 
-
-// export default connect(
-//     "product_state", actions)
-//     (withRouter(AddProduct));
+// export default AddProduct; 
+export default connect(
+    "", actions)
+    (withRouter(AddProduct));

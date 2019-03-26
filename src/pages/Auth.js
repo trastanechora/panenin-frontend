@@ -14,6 +14,7 @@ import { actions, store } from '../Store';
 import { connect } from "unistore/react";
 import axios from "axios"
 
+
 //MAIN CLASS
 class Auth extends Component {
   // constructor (props) {
